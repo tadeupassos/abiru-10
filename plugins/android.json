@@ -1,0 +1,27 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "br.com.abiru"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "br.com.abiru"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "br.com.abiru"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "br.com.abiru"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "br.com.abiru"
+    }
+  },
+  "dependent_plugins": {}
+}

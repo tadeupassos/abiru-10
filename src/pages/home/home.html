@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <!--<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>--> 
+    <ion-title>
+      Abiru
+    </ion-title>
+    <ion-buttons right (tap)="mostrarCarrinho()">
+      <button ion-button icon-only large>
+        <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>
+      </button>     
+    </ion-buttons>         
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content id="fundo">
+  <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">
+  </ion-searchbar> 
+
+  <ion-list>
+    <ion-card *ngFor="let produto of produtosItem | async">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col text-center col-4>
+            <img [src]="produto.urlImg">
+          </ion-col>
+          <ion-col col-4>
+            <ion-row>
+              <ion-col text-center>
+                <div style="font-size: 15px">{{ produto.itemNome }}</div>
+              </ion-col>
+            </ion-row> 
+            <ion-row>
+              <ion-col text-center>
+                <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-4>
+            <ion-row style="font-size: 25px">
+              <ion-col col-4 text-left>
+                <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>
+              </ion-col>
+              <ion-col col-4 text-center>
+                {{ produto.qtdeItem }}
+              </ion-col>
+              <ion-col col-4 text-right>
+                <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>
+              </ion-col> 
+            </ion-row>
+            <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">
+              <ion-col text-center style="font-weight: bold">
+                {{ produto.medida }}
+              </ion-col>
+            </ion-row>            
+            <ion-row>
+              <ion-col text-center>
+                <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">
+                  <!--<ion-icon name="cart"></ion-icon>-->
+                  Comprar
+                </button>
+              </ion-col>            
+            </ion-row> 
+          </ion-col>
+        </ion-row>
+      </ion-grid> 
+    </ion-card> 
+  </ion-list> 
+</ion-content>

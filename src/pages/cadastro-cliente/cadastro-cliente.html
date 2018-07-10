@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>
+      Tembiu
+    </ion-title>
+
+    <ion-buttons right>
+      <button ion-button icon-only (tap)="salvarDados()">
+        <ion-icon name="md-checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item no-lines>
+        <div text-center style="font-weight: bold; font-size: 120%">Complete o cadastro</div>
+    </ion-item>
+
+    <ion-item no-lines text-wrap>
+      <div text-center style="color:dimgray; font-size: 100%; margin-left: 20px; margin-right: 20px">Falta pouco! Complete o seu cadastro abaixo e finalize sua compra.</div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="secondary" stacked>Nome Fantasia</ion-label>
+      <ion-input (keyup)="campoNomeVazio()" type="text" [(ngModel)]="nomeFantasia"></ion-input>
+    </ion-item>
+    <p text-center *ngIf="nomeVazio" style="color: red">Digite o Nome Fantasia</p>
+
+    <ion-item>
+      <ion-label color="secondary" stacked>CNPJ</ion-label>
+      <ion-input (keyup)="verCnpj()" type="text" [(ngModel)]="cnpj"></ion-input>
+    </ion-item>
+    <p text-center *ngIf="cnpjVazio" style="color: red">Digite o CNPJ</p>
+
+    <ion-item>
+      <ion-label color="secondary" stacked>Telefone</ion-label>
+      <ion-input (keyup)="numeroTel()" type="text" [(ngModel)]="telefone"></ion-input>
+    </ion-item>
+    <p text-center *ngIf="telefoneVazio" style="color: red">Digite o Telefone</p>
+
+  </ion-list> 
+
+</ion-content>

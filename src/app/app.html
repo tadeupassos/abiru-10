@@ -1,0 +1,27 @@
+<ion-menu id="menuApp" [content]="conteudo"  color="secondary">
+    <ion-header>
+      <ion-toolbar color="secondary">
+        <ion-title style="text-align: left">Menu </ion-title>
+      </ion-toolbar>
+    </ion-header>
+  
+    <ion-content color="secondary">
+  
+      <ion-list color="secondary">
+  
+        <ion-item color="secondary"> 
+          <button menuClose ion-button full clear color="light" style="font-size: 80%">Configurações</button>
+        </ion-item>
+        <ion-item color="secondary">
+          <button menuClose ion-button full clear color="light" style="font-size: 80%">Perfil</button>
+        </ion-item>
+        <ion-item color="secondary">
+          <button menuClose ion-button full clear color="light" style="font-size: 80%" >Sair</button>
+        </ion-item>
+  
+      </ion-list>
+    </ion-content>
+  
+  </ion-menu>
+
+<ion-nav #conteudo [root]="rootPage" swipeBackEnabled="false"  color="secondary"></ion-nav>

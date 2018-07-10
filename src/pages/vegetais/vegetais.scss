@@ -1,0 +1,41 @@
+page-vegetais {
+    .btn {
+        display: block;
+        height: 60px;
+        width: 100%;
+        border-radius: 10%;
+        border: 0px ;
+      }    
+
+    .text-on-bottom > .button-inner {
+        flex-direction: column;
+    }    
+
+    #icone {
+        font-size: 15px;
+        align-self: flex-start;
+        margin-top: 14px;
+      }        
+
+    .item ion-thumbnail {
+        min-width: 15rem;    
+        min-height: 15rem;
+        img {
+            max-width: 17rem;    
+            min-width: 17rem;
+        }
+    }    
+
+    button {
+        ion-badge {
+            position: absolute;
+            top: -0.2rem;
+            right: -0.2rem;
+            opacity: 0.9;
+    
+            & ~ ion-icon {
+                margin-right: 1.2rem;
+            }
+        }
+    } 
+}

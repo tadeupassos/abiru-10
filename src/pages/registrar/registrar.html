@@ -1,0 +1,29 @@
+<ion-content>
+  <div style="margin-top: 50px">
+    <ion-row>
+      <ion-col>
+        <ion-list style="margin-right: 20px; margin-left: 20px">
+          <ion-item class="campo" >
+            <ion-input [(ngModel)]="userLogin.email" name="email" placeholder="E-mail" type="email"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-list style="margin-right: 20px; margin-left: 20px">
+          <ion-item class="campo" >
+            <ion-input [(ngModel)]="userLogin.senha" name="email" placeholder="Senha" type="password"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="margin-left: 20px; margin-right: 20px">
+        <button ion-button full class="login-button" color="secondary" (tap)="registrar(userLogin)">Registrar</button>
+      </ion-col>  
+    </ion-row>  
+  </div>
+</ion-content>

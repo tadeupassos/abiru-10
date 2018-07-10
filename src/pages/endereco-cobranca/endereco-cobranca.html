@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-navbar color="secondary">
+      <ion-buttons left>
+        <button ion-button icon-only (tap)="fecharModal()">
+          <span ion-text showWhen="ios">Fechar</span>
+          <ion-icon showWhen="android" name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>    
+      <ion-buttons right>
+        <button ion-button icon-only (tap)="salvarDados()">
+          <ion-icon name="md-checkmark"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item no-lines>
+        <div text-center style="font-weight: bold; font-size: 120%">Endereço de cobrança</div>
+        <!--<div text-center text-wrap style="color:dimgray; font-size: 100%; margin-left: 20px; margin-right: 20px">Falta pouco! Complete o seu cadastro abaixo e finalize sua compra.</div>-->
+      </ion-item>
+  
+     <ion-item>
+        <ion-label color="secondary" stacked>CEP</ion-label>
+        <ion-input (keyup)="numeroCep()" type="text" [(ngModel)]="cep"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="cepVazio" style="color: red">Digite o CEP</p>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>Endereço</ion-label>
+        <ion-input type="text" max="30" [(ngModel)]="endereco" (keyup)="verEnderecoVazio()"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="enderecoVazio" style="color: red">Digite o Endereço</p>
+  
+      <ion-row>
+        <ion-col col-4 no-lines>
+          <ion-item no-lines showWhen="android">
+            <ion-label color="secondary" stacked>Número</ion-label>
+            <ion-input type="number" max="10" [(ngModel)]="numero" (keyup)="soNumero()"></ion-input>
+          </ion-item>
+          <ion-item showWhen="ios">
+            <ion-label color="secondary" stacked>Número</ion-label>
+            <ion-input type="number" max="10" [(ngModel)]="numero" (keyup)="soNumero()"></ion-input>
+          </ion-item>
+          <p text-center *ngIf="numeroVazio" style="color: red; font-size: 90%">Digite o Número</p>
+        </ion-col>
+        <ion-col col-8 no-lines>
+          <ion-item no-lines showWhen="android">
+            <ion-label color="secondary" stacked>Complemento</ion-label>
+            <ion-input type="text" max="20" [(ngModel)]="complemento"></ion-input>  
+          </ion-item>  
+          <ion-item showWhen="ios">
+            <ion-label color="secondary" stacked>Complemento</ion-label>
+            <ion-input type="text" max="20" [(ngModel)]="complemento"></ion-input>  
+          </ion-item>          
+        </ion-col>        
+      </ion-row>
+  
+      <ion-item>
+        <ion-label color="secondary"  stacked>Bairro</ion-label>
+        <ion-input type="text" max="30" [(ngModel)]="bairro" (keyup)="verBairroVazio()"></ion-input>
+      </ion-item>  
+      <p text-center *ngIf="bairroVazio" style="color: red">Digite o Bairro</p>
+      
+      <ion-row>
+        <ion-col col-9>
+          <ion-item no-lines showWhen="android">
+            <ion-label color="secondary" stacked>Cidade</ion-label>
+            <ion-input type="text" max="50" [(ngModel)]="cidade" (keyup)="verCidadeVazio()"></ion-input>
+          </ion-item> 
+          <ion-item showWhen="ios">
+            <ion-label color="secondary" stacked>Cidade</ion-label>
+            <ion-input type="text" max="50" [(ngModel)]="cidade" (keyup)="verCidadeVazio()"></ion-input>
+          </ion-item> 
+          <p text-center *ngIf="cidadeVazio" style="color: red">Digite a Cidade</p>
+        </ion-col>
+        <ion-col col-3>
+          <ion-item no-lines showWhen="android">
+            <ion-label color="secondary" stacked>Estado</ion-label>
+            <ion-input type="text" max="2" [(ngModel)]="estado" (keyup)="tamanhoEstado()"></ion-input> 
+          </ion-item>   
+          <ion-item showWhen="ios">
+            <ion-label color="secondary" stacked>Estado</ion-label>
+            <ion-input type="text" max="2" [(ngModel)]="estado" (keyup)="tamanhoEstado()"></ion-input> 
+          </ion-item>   
+          <p text-center *ngIf="estadoVazio" style="color: red; font-size: 75%">Digite o Estado</p>       
+        </ion-col>        
+      </ion-row>
+    </ion-list> 
+  
+  </ion-content>
+  

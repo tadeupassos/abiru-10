@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title>
+        Carrinho
+      </ion-title>
+      <ion-buttons start (tap)="fecharModal()">
+        <button ion-button>
+          <span ion-text showWhen="ios">Fechar</span>
+          <ion-icon showWhen="android" name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+<ion-content>
+  <ion-list>
+    <ion-item text-wrap *ngFor="let item of itensCarrinho">
+      <ion-row >
+        <ion-col col-3>
+          <img [src]="item.urlImg" width="70px" height="70px">
+        </ion-col>
+        <ion-col>
+          <ion-row>
+            <ion-col col-6 text-left style="font-size: 15px">
+              {{ item.itemNome }}
+            </ion-col>
+            <ion-col col-2 text-right  style="font-size: 25px">
+              <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>
+            </ion-col>
+            <ion-col col-2 text-center style="font-size: 25px">
+              {{ item.qtdeItem }}
+            </ion-col>
+            <ion-col col-2 text-left  style="font-size: 25px">
+              <ion-icon name="ios-add-circle-outline" (tap)="adicionar(item)"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>  
+            <ion-col col-4 text-left style="font-size: 15px">
+             R$ {{ item.preco }}
+            </ion-col>   
+            <ion-col text-right style="color:slategrey" style="font-size: 15px; font-weight: bold">
+              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>
+            </ion-col>
+          </ion-row> 
+        </ion-col>         
+      </ion-row>  
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-item>
+    Total
+    <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>
+  </ion-item>
+  <ion-toolbar color="secondary">
+    <button ion-button full color="danger" (tap)="fecharPedido()">Fechar Pedido</button>
+  </ion-toolbar>
+</ion-footer>  

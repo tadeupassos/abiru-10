@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-navbar color="secondary">
+      <ion-buttons left>
+        <button ion-button icon-only (tap)="fecharModal()">
+          <span ion-text showWhen="ios">Fechar</span>
+          <ion-icon showWhen="android" name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>    
+      <ion-buttons right>
+        <button ion-button icon-only (tap)="salvarDados()">
+          <ion-icon name="md-checkmark"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+  
+      <ion-item no-lines>
+          <div text-center style="font-weight: bold; font-size: 120%">Pagamento</div>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>Número do Cartão</ion-label>
+        <ion-input (keyup)="soNumero()" type="text" [(ngModel)]="numero"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="numeroVazio" style="color: red">Digite o número do cartão</p>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>Nome (igual no cartão)</ion-label>
+        <ion-input (keyup)="verNomeVazio()"  type="text" [(ngModel)]="nomeImpresso"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="nomeVazio" style="color: red">Digite o nome impresso no cartão</p>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" stacked>Validade (mês/ano)</ion-label>
+            <ion-input (keyup)="validadeCartao()" type="text" [(ngModel)]="validade"></ion-input>
+          </ion-item>
+          <p text-center *ngIf="validadeVazio" style="color: red">Digite a Validade do cartão</p>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" stacked>Código de Segurança</ion-label>
+            <ion-input (keyup)="varCodigoSeguranca()" type="text" [(ngModel)]="codigoSeguranca"></ion-input>
+          </ion-item>
+          <p text-center *ngIf="codigoVazio" style="color: red">Digite o código de segurança</p>
+        </ion-col>
+      </ion-row>
+  
+    </ion-list> 
+  
+  </ion-content>
+  

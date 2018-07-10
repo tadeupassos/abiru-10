@@ -1,0 +1,37 @@
+<ion-content>
+  <div style="margin-top: 200px">
+    <ion-row>
+      <ion-col>
+        <ion-list style="margin-right: 20px; margin-left: 20px">
+          <ion-item class="campo" >
+            <ion-input [(ngModel)]="user.email" placeholder="E-mail" type="text"></ion-input>
+          </ion-item>
+          <p text-center *ngIf="camposVazios" style="color: #ff0000; font-size: 0.9em;">Não pode haver campos vazios!</p>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-list style="margin-right: 20px; margin-left: 20px">
+          <ion-item class="campo" >
+            <ion-input [(ngModel)]="user.senha" placeholder="Senha" type="password"></ion-input>
+          </ion-item>
+          <p text-center *ngIf="camposVazios" style="color: #ff0000; font-size: 0.9em;">Não pode haver campos vazios!</p>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="margin-left: 20px; margin-right: 20px">
+        <button ion-button class="login-button" color="secondary" (tap)="logar(user)">Entrar</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="margin-left: 20px; margin-right: 20px">
+        <button ion-button  outline round class="login-button" color="secondary" (tap)="registrar()">Registrar</button>
+      </ion-col>  
+    </ion-row>  
+  </div>
+</ion-content>
