@@ -14,7 +14,7 @@ import { ServicosProvider } from '../providers/servicos/servicos';
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,  afAuth: AngularFireAuth, public serv: ServicosProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public afAuth: AngularFireAuth, public serv: ServicosProvider) {
 
     afAuth.authState.subscribe(user => {
       if(user){
@@ -31,6 +31,10 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  sair(){
+    this.afAuth.auth.signOut();
   }
 }
 

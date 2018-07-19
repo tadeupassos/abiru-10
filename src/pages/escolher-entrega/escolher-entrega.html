@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <!--<ion-buttons right>
+      <button ion-button icon-only (tap)="fecharModal()">
+        <span ion-text showWhen="ios">Fechar</span>
+        <ion-icon showWhen="android" name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>    -->
+    <ion-title>Entregar Quando?</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>Data de Entrega:</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2018-07-18" [(ngModel)]="dataEntrega" (ionChange)="verDataEntrega()"></ion-datetime>
+    </ion-item>
+  </ion-list> 
+  <p text-center *ngIf="dataEntregaVazio" style="color: red">Preencha a data de entrega</p>
+  <ion-list radio-group [(ngModel)]="periodoEntrega">
+
+    <ion-list-header>
+      Período para entrega:
+    </ion-list-header>
+  
+    <ion-item>
+      <ion-label>Manhã</ion-label>
+      <ion-radio value="manhã" (ionSelect)="verPeriodoEntrega()"></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Tarde</ion-label>
+      <ion-radio value="tarde" (ionSelect)="verPeriodoEntrega()"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <p text-center *ngIf="periodoVazio" style="color: red">Escolha o período da entrega</p>
+  <button ion-button block outline color="secondary" (tap)="salvarEntrega()">Salvar</button>
+</ion-content>

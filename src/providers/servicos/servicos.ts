@@ -11,10 +11,13 @@ export class ServicosProvider {
 
     public qtdeCarrinho = 0;
     public carrinho: any[] = [];
+    public totalPagar = "";
+    public finalizouCompra = false;
 
-    cadastroCliente: Observable<any[]>;    
+    cadastroCliente: Observable<any[]>;
 
     public usuarioLogado = {
+        key: "",
         clienteId: "",
         email: "",
         nomeFantasia: "",
@@ -28,7 +31,7 @@ export class ServicosProvider {
             cep: "",
             cidade: "",
             estado: "",
-            mesmoEnderecoCobranca: "S"
+            mesmoEnderecoCobranca: true
         },
         enderecoCobranca: {
             endereco: "",
@@ -44,6 +47,10 @@ export class ServicosProvider {
             nomeImpresso: "",
             validade: "",
             codigoSeguranca: ""
+        },
+        entregaEscolhida: {
+            dataEntrega: "",
+            periodoEntrega: ""
         }
     }
 
@@ -78,6 +85,7 @@ export class ServicosProvider {
                 this.carrinho = this.carrinho.filter(p => {
                     return p.key != produto.key
                 });
+
                 this.carrinho.unshift(itemNoCarrinho[0]);
             }else{
                 this.carrinho.push({
@@ -103,7 +111,7 @@ export class ServicosProvider {
 
         let toast = this.toastCtrl.create({
             message: 'Produto adicionado ao carrinho.',
-            duration: 3000,
+            duration: 2000,
             position: 'middle'
         });
         toast.present();
@@ -113,7 +121,7 @@ export class ServicosProvider {
 
         let toast = this.toastCtrl.create({
             message: 'Por favor, ' + medida + ' não pode ser igual 0.',
-            duration: 3000,
+            duration: 2000,
             position: 'middle'
         });
         toast.present();
@@ -144,65 +152,54 @@ export class ServicosProvider {
         this.usuarioLogado.clienteId = usuario.uid;
         this.usuarioLogado.email = usuario.email;
 
-        let cliente = this.database.list('cadastroCliente', ref => ref.orderByChild('clienteId').equalTo(usuario.uid))
+        this.database.list('clientes', ref => ref.orderByChild('clienteId').equalTo(usuario.uid))
             .snapshotChanges()
             .map(changes => {
                  return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
             }).forEach((item) => {
                 if(item.length > 0){
-                    this.usuarioLogado.nomeFantasia = item[0].nomeFantasia;
-                    this.usuarioLogado.cnpj = item[0].cnpj;
-                    this.usuarioLogado.telefone = item[0].telefone
-                }
-            });   
+                    this.usuarioLogado.key = item[0].key;
 
-        this.database.list('enderecoEntrega', ref => ref.orderByChild('clienteId').equalTo(usuario.uid))
-            .snapshotChanges()
-            .map(changes => {
-                 return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
-            }).forEach((entrega) => {
-                if(entrega.length > 0){
-                    this.usuarioLogado.enderecoEntrega.endereco = entrega[0].endereco;
-                    this.usuarioLogado.enderecoEntrega.numero = entrega[0].numero;
-                    this.usuarioLogado.enderecoEntrega.complemento = entrega[0].complemento;
-                    this.usuarioLogado.enderecoEntrega.bairro = entrega[0].bairro;
-                    this.usuarioLogado.enderecoEntrega.cep = entrega[0].cep;
-                    this.usuarioLogado.enderecoEntrega.cidade = entrega[0].cidade;
-                    this.usuarioLogado.enderecoEntrega.estado = entrega[0].estado;
-                    this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca = entrega[0].mesmoEnderecoCobranca;
-                }
-            });
-            
-        if(this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca == "N"){
-            this.database.list('enderecoCobranca', ref => ref.orderByChild('clienteId').equalTo(usuario.uid))
-                .snapshotChanges()
-                .map(changes => {
-                    return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
-                }).forEach((cobranca) => {
-                    if(cobranca.length > 0){
-                        this.usuarioLogado.enderecoCobranca.endereco = cobranca[0].endereco;
-                        this.usuarioLogado.enderecoCobranca.numero = cobranca[0].numero;
-                        this.usuarioLogado.enderecoCobranca.complemento = cobranca[0].complemento;
-                        this.usuarioLogado.enderecoCobranca.bairro = cobranca[0].bairro;
-                        this.usuarioLogado.enderecoCobranca.cep = cobranca[0].cep;
-                        this.usuarioLogado.enderecoCobranca.cidade = cobranca[0].cidade;
-                        this.usuarioLogado.enderecoCobranca.estado = cobranca[0].estado;
+                    if(item[0].cliente){
+                        this.usuarioLogado.nomeFantasia = item[0].cliente.nomeFantasia;
+                        this.usuarioLogado.cnpj = item[0].cliente.cnpj;
+                        this.usuarioLogado.telefone = item[0].cliente.telefone;
                     }
-                });
-        }
+                    
+                    if(item[0].enderecoEntrega){
+                        this.usuarioLogado.enderecoEntrega.endereco = item[0].enderecoEntrega.endereco;
+                        this.usuarioLogado.enderecoEntrega.numero = item[0].enderecoEntrega.numero;
+                        this.usuarioLogado.enderecoEntrega.complemento = item[0].enderecoEntrega.complemento;
+                        this.usuarioLogado.enderecoEntrega.bairro = item[0].enderecoEntrega.bairro;
+                        this.usuarioLogado.enderecoEntrega.cep = item[0].enderecoEntrega.cep;
+                        this.usuarioLogado.enderecoEntrega.cidade = item[0].enderecoEntrega.cidade;
+                        this.usuarioLogado.enderecoEntrega.estado = item[0].enderecoEntrega.estado;
+                        this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca = item[0].enderecoEntrega.mesmoEnderecoCobranca;
+                    }
 
-        this.database.list('cartaoCredito', ref => ref.orderByChild('clienteId').equalTo(usuario.uid))
-            .snapshotChanges()
-            .map(changes => {
-                 return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
-            }).forEach((cartao) => {
-                if(cartao.length > 0){
-                    this.usuarioLogado.cartaoCredito.numero = cartao[0].numero;
-                    this.usuarioLogado.cartaoCredito.nomeImpresso = cartao[0].nomeImpresso;
-                    this.usuarioLogado.cartaoCredito.validade = cartao[0].validade;
-                    this.usuarioLogado.cartaoCredito.codigoSeguranca = cartao[0].codigoSeguranca;
+                    if(item[0].enderecoCobranca){
+                        this.usuarioLogado.enderecoCobranca.endereco = item[0].enderecoCobranca.endereco;
+                        this.usuarioLogado.enderecoCobranca.numero = item[0].enderecoCobranca.numero;
+                        this.usuarioLogado.enderecoCobranca.complemento = item[0].enderecoCobranca.complemento;
+                        this.usuarioLogado.enderecoCobranca.bairro = item[0].enderecoCobranca.bairro;
+                        this.usuarioLogado.enderecoCobranca.cep = item[0].enderecoCobranca.cep;
+                        this.usuarioLogado.enderecoCobranca.cidade = item[0].enderecoCobranca.cidade;
+                        this.usuarioLogado.enderecoCobranca.estado = item[0].enderecoCobranca.estado;
+                    }
+
+                    if(item[0].cartaoCredito){
+                        this.usuarioLogado.cartaoCredito.numero = item[0].cartaoCredito.numero;
+                        this.usuarioLogado.cartaoCredito.nomeImpresso = item[0].cartaoCredito.nomeImpresso;
+                        this.usuarioLogado.cartaoCredito.validade = item[0].cartaoCredito.validade;
+                        this.usuarioLogado.cartaoCredito.codigoSeguranca = item[0].cartaoCredito.codigoSeguranca;
+                    }
+
+                    if(item[0].entregaEscolhida){
+                        this.usuarioLogado.entregaEscolhida.dataEntrega = item[0].entregaEscolhida.dataEntrega;
+                        this.usuarioLogado.entregaEscolhida.periodoEntrega = item[0].entregaEscolhida.periodoEntrega;
+                    }
+                    //console.log("cliente " + JSON.stringify(this.usuarioLogado));
                 }
             }); 
-        
     }
 }

@@ -1,14 +1,14 @@
 webpackJsonp([3],{
 
-/***/ 454:
+/***/ 459:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnderecoCobrancaPageModule", function() { return EnderecoCobrancaPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EscolherEntregaPageModule", function() { return EscolherEntregaPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__endereco_cobranca__ = __webpack_require__(461);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__escolher_entrega__ = __webpack_require__(468);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,35 +18,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var EnderecoCobrancaPageModule = /** @class */ (function () {
-    function EnderecoCobrancaPageModule() {
+var EscolherEntregaPageModule = /** @class */ (function () {
+    function EscolherEntregaPageModule() {
     }
-    EnderecoCobrancaPageModule = __decorate([
+    EscolherEntregaPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__endereco_cobranca__["a" /* EnderecoCobrancaPage */],
+                __WEBPACK_IMPORTED_MODULE_2__escolher_entrega__["a" /* EscolherEntregaPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__endereco_cobranca__["a" /* EnderecoCobrancaPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__escolher_entrega__["a" /* EscolherEntregaPage */]),
             ],
         })
-    ], EnderecoCobrancaPageModule);
-    return EnderecoCobrancaPageModule;
+    ], EscolherEntregaPageModule);
+    return EscolherEntregaPageModule;
 }());
 
-//# sourceMappingURL=endereco-cobranca.module.js.map
+//# sourceMappingURL=escolher-entrega.module.js.map
 
 /***/ }),
 
-/***/ 461:
+/***/ 468:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnderecoCobrancaPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EscolherEntregaPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_angularfire2_database__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -60,129 +60,68 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var EnderecoCobrancaPage = /** @class */ (function () {
-    function EnderecoCobrancaPage(navCtrl, navParams, database, serv, modalCtrl, viewCtrl) {
+var EscolherEntregaPage = /** @class */ (function () {
+    //dataMinima = new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDay();
+    function EscolherEntregaPage(navCtrl, navParams, viewCtrl, serv, database) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.database = database;
-        this.serv = serv;
-        this.modalCtrl = modalCtrl;
         this.viewCtrl = viewCtrl;
-        this.endereco = "";
-        this.numero = "";
-        this.complemento = "";
-        this.bairro = "";
-        this.cep = "";
-        this.cidade = "";
-        this.estado = "";
-        this.enderecoVazio = false;
-        this.numeroVazio = false;
-        this.cepVazio = false;
-        this.cidadeVazio = false;
-        this.estadoVazio = false;
-        this.bairroVazio = false;
+        this.serv = serv;
+        this.database = database;
+        this.dataEntrega = "";
+        this.periodoEntrega = "";
+        this.dataEntregaVazio = false;
+        this.periodoVazio = false;
+        if (this.navParams.data.entrega) {
+            this.dataEntrega = this.navParams.data.entrega.dataEntrega;
+            this.periodoEntrega = this.navParams.data.entrega.periodoEntrega;
+        }
     }
-    EnderecoCobrancaPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnderecoCobrancaPage');
+    EscolherEntregaPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad EscolherEntregaPage');
     };
-    EnderecoCobrancaPage.prototype.salvarDados = function () {
+    EscolherEntregaPage.prototype.fecharModal = function () {
+        this.viewCtrl.dismiss();
+    };
+    EscolherEntregaPage.prototype.salvarEntrega = function () {
         var _this = this;
-        if (this.cep.trim().length == 0) {
-            this.cepVazio = true;
+        if (this.dataEntrega == "") {
+            this.dataEntregaVazio = true;
         }
-        else if (this.endereco.trim().length == 0) {
-            this.enderecoVazio = true;
-        }
-        else if (this.numero.trim().length == 0) {
-            this.numeroVazio = true;
-        }
-        else if (this.bairro.trim().length == 0) {
-            this.bairroVazio = true;
-        }
-        else if (this.cidade.trim().length == 0) {
-            this.cidadeVazio = true;
-        }
-        else if (this.estado.trim().length == 0) {
-            this.estadoVazio = true;
+        else if (this.periodoEntrega == "") {
+            this.periodoVazio = true;
         }
         else {
-            this.database.list('enderecoCobranca')
-                .push({
-                clienteId: this.serv.usuarioLogado.clienteId,
-                endereco: this.endereco,
-                numero: this.numero,
-                complemento: this.complemento,
-                bairro: this.bairro,
-                cep: this.cep,
-                cidade: this.cidade,
-                estado: this.estado
+            var chave = this.serv.usuarioLogado.key;
+            this.database.list('clientes')
+                .update(chave, {
+                entregaEscolhida: {
+                    dataEntrega: this.dataEntrega,
+                    periodoEntrega: this.periodoEntrega
+                }
             }).then(function () {
-                if (_this.serv.usuarioLogado.cartaoCredito.numero == "") {
-                    _this.modalCtrl.create('CartaoCreditoPage').present();
-                }
-                else {
-                    _this.navCtrl.push('FecharPedidoPage');
-                }
+                _this.serv.usuarioLogado.entregaEscolhida.dataEntrega = _this.dataEntrega;
+                _this.serv.usuarioLogado.entregaEscolhida.periodoEntrega = _this.periodoEntrega;
+                _this.fecharModal();
             });
         }
     };
-    EnderecoCobrancaPage.prototype.numeroCep = function () {
-        if (this.cep.length > 9) {
-            this.cep = this.cep.slice(0, -1);
-        }
-        else if (isNaN(parseInt(this.cep.substr(-1))) || this.cep.substr(-1) == "." || this.cep.substr(-1) == " ") {
-            this.cep = this.cep.slice(0, -1);
-        }
-        else if (this.cep.length == 6) {
-            var ultimo = this.cep.substr(-1);
-            this.cep = this.cep.slice(0, -1) + "-" + ultimo;
-        }
-        this.cepVazio = (this.cep.trim().length == 0);
+    EscolherEntregaPage.prototype.verDataEntrega = function () {
+        this.dataEntregaVazio = (this.dataEntrega == "");
     };
-    EnderecoCobrancaPage.prototype.soNumero = function () {
-        if (this.numero.trim().length > 5) {
-            this.numero = this.numero.slice(0, -1);
-        }
-        else if (isNaN(parseInt(this.numero.substr(-1))) || this.numero.substr(-1) == "." || this.numero.substr(-1) == " ") {
-            this.numero = this.numero.slice(0, -1);
-        }
-        this.numeroVazio = (this.numero.trim().length == 0);
+    EscolherEntregaPage.prototype.verPeriodoEntrega = function () {
+        this.periodoVazio = (this.periodoEntrega == "");
     };
-    EnderecoCobrancaPage.prototype.verEnderecoVazio = function () {
-        this.enderecoVazio = (this.endereco.trim().length == 0);
-    };
-    EnderecoCobrancaPage.prototype.verBairroVazio = function () {
-        this.bairroVazio = (this.bairro.trim().length == 0);
-    };
-    EnderecoCobrancaPage.prototype.verCidadeVazio = function () {
-        this.cidadeVazio = (this.cidade.trim().length == 0);
-    };
-    EnderecoCobrancaPage.prototype.fecharModal = function () {
-        this.viewCtrl.dismiss();
-    };
-    EnderecoCobrancaPage.prototype.tamanhoEstado = function () {
-        if (this.estado.trim().length > 2) {
-            this.estado = this.estado.slice(0, -1);
-        }
-        else if (!isNaN(parseInt(this.estado.substr(-1))) || this.estado.substr(-1) == "." || this.estado.substr(-1) == " ") {
-            this.estado = this.estado.slice(0, -1);
-        }
-        else {
-            this.estado = this.estado.toLocaleUpperCase();
-        }
-        this.estadoVazio = (this.estado.trim().length == 0);
-    };
-    EnderecoCobrancaPage = __decorate([
+    EscolherEntregaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-endereco-cobranca',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\endereco-cobranca\endereco-cobranca.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <ion-buttons left>\n        <button ion-button icon-only (tap)="fecharModal()">\n          <span ion-text showWhen="ios">Fechar</span>\n          <ion-icon showWhen="android" name="md-close"></ion-icon>\n        </button>\n      </ion-buttons>    \n      <ion-buttons right>\n        <button ion-button icon-only (tap)="salvarDados()">\n          <ion-icon name="md-checkmark"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-list>\n      <ion-item no-lines>\n        <div text-center style="font-weight: bold; font-size: 120%">Endereço de cobrança</div>\n        <!--<div text-center text-wrap style="color:dimgray; font-size: 100%; margin-left: 20px; margin-right: 20px">Falta pouco! Complete o seu cadastro abaixo e finalize sua compra.</div>-->\n      </ion-item>\n  \n     <ion-item>\n        <ion-label color="secondary" stacked>CEP</ion-label>\n        <ion-input (keyup)="numeroCep()" type="text" [(ngModel)]="cep"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="cepVazio" style="color: red">Digite o CEP</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Endereço</ion-label>\n        <ion-input type="text" max="30" [(ngModel)]="endereco" (keyup)="verEnderecoVazio()"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="enderecoVazio" style="color: red">Digite o Endereço</p>\n  \n      <ion-row>\n        <ion-col col-4 no-lines>\n          <ion-item no-lines showWhen="android">\n            <ion-label color="secondary" stacked>Número</ion-label>\n            <ion-input type="number" max="10" [(ngModel)]="numero" (keyup)="soNumero()"></ion-input>\n          </ion-item>\n          <ion-item showWhen="ios">\n            <ion-label color="secondary" stacked>Número</ion-label>\n            <ion-input type="number" max="10" [(ngModel)]="numero" (keyup)="soNumero()"></ion-input>\n          </ion-item>\n          <p text-center *ngIf="numeroVazio" style="color: red; font-size: 90%">Digite o Número</p>\n        </ion-col>\n        <ion-col col-8 no-lines>\n          <ion-item no-lines showWhen="android">\n            <ion-label color="secondary" stacked>Complemento</ion-label>\n            <ion-input type="text" max="20" [(ngModel)]="complemento"></ion-input>  \n          </ion-item>  \n          <ion-item showWhen="ios">\n            <ion-label color="secondary" stacked>Complemento</ion-label>\n            <ion-input type="text" max="20" [(ngModel)]="complemento"></ion-input>  \n          </ion-item>          \n        </ion-col>        \n      </ion-row>\n  \n      <ion-item>\n        <ion-label color="secondary"  stacked>Bairro</ion-label>\n        <ion-input type="text" max="30" [(ngModel)]="bairro" (keyup)="verBairroVazio()"></ion-input>\n      </ion-item>  \n      <p text-center *ngIf="bairroVazio" style="color: red">Digite o Bairro</p>\n      \n      <ion-row>\n        <ion-col col-9>\n          <ion-item no-lines showWhen="android">\n            <ion-label color="secondary" stacked>Cidade</ion-label>\n            <ion-input type="text" max="50" [(ngModel)]="cidade" (keyup)="verCidadeVazio()"></ion-input>\n          </ion-item> \n          <ion-item showWhen="ios">\n            <ion-label color="secondary" stacked>Cidade</ion-label>\n            <ion-input type="text" max="50" [(ngModel)]="cidade" (keyup)="verCidadeVazio()"></ion-input>\n          </ion-item> \n          <p text-center *ngIf="cidadeVazio" style="color: red">Digite a Cidade</p>\n        </ion-col>\n        <ion-col col-3>\n          <ion-item no-lines showWhen="android">\n            <ion-label color="secondary" stacked>Estado</ion-label>\n            <ion-input type="text" max="2" [(ngModel)]="estado" (keyup)="tamanhoEstado()"></ion-input> \n          </ion-item>   \n          <ion-item showWhen="ios">\n            <ion-label color="secondary" stacked>Estado</ion-label>\n            <ion-input type="text" max="2" [(ngModel)]="estado" (keyup)="tamanhoEstado()"></ion-input> \n          </ion-item>   \n          <p text-center *ngIf="estadoVazio" style="color: red; font-size: 75%">Digite o Estado</p>       \n        </ion-col>        \n      </ion-row>\n    </ion-list> \n  \n  </ion-content>\n  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\endereco-cobranca\endereco-cobranca.html"*/,
+            selector: 'page-escolher-entrega',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\escolher-entrega\escolher-entrega.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <!--<ion-buttons right>\n      <button ion-button icon-only (tap)="fecharModal()">\n        <span ion-text showWhen="ios">Fechar</span>\n        <ion-icon showWhen="android" name="md-close"></ion-icon>\n      </button>\n    </ion-buttons>    -->\n    <ion-title>Entregar Quando?</ion-title>\n  </ion-navbar>\n</ion-header>\n  \n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label>Data de Entrega:</ion-label>\n      <ion-datetime displayFormat="DD/MM/YYYY" min="2018-07-18" [(ngModel)]="dataEntrega" (ionChange)="verDataEntrega()"></ion-datetime>\n    </ion-item>\n  </ion-list> \n  <p text-center *ngIf="dataEntregaVazio" style="color: red">Preencha a data de entrega</p>\n  <ion-list radio-group [(ngModel)]="periodoEntrega">\n\n    <ion-list-header>\n      Período para entrega:\n    </ion-list-header>\n  \n    <ion-item>\n      <ion-label>Manhã</ion-label>\n      <ion-radio value="manhã" (ionSelect)="verPeriodoEntrega()"></ion-radio>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label>Tarde</ion-label>\n      <ion-radio value="tarde" (ionSelect)="verPeriodoEntrega()"></ion-radio>\n    </ion-item>\n  </ion-list>\n  <p text-center *ngIf="periodoVazio" style="color: red">Escolha o período da entrega</p>\n  <button ion-button block outline color="secondary" (tap)="salvarEntrega()">Salvar</button>\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\escolher-entrega\escolher-entrega.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__["a" /* ServicosProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__["a" /* ServicosProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"]) === "function" && _f || Object])
-    ], EnderecoCobrancaPage);
-    return EnderecoCobrancaPage;
-    var _a, _b, _c, _d, _e, _f;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_3__node_modules_angularfire2_database__["a" /* AngularFireDatabase */]])
+    ], EscolherEntregaPage);
+    return EscolherEntregaPage;
 }());
 
-//# sourceMappingURL=endereco-cobranca.js.map
+//# sourceMappingURL=escolher-entrega.js.map
 
 /***/ })
 

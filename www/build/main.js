@@ -1,4 +1,4 @@
-webpackJsonp([7],{
+webpackJsonp([9],{
 
 /***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -6,10 +6,12 @@ webpackJsonp([7],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbbasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__frutas_frutas__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vegetais_vegetais__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__frutas_frutas__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vegetais_vegetais__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lista_pedido_lista_pedido__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,22 +26,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var AbbasPage = /** @class */ (function () {
-    function AbbasPage(navCtrl, navParams) {
+    function AbbasPage(navCtrl, navParams, serv) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.serv = serv;
         this.tab1Root = __WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */];
         this.tab2Root = __WEBPACK_IMPORTED_MODULE_3__frutas_frutas__["a" /* FrutasPage */];
         this.tab3Root = __WEBPACK_IMPORTED_MODULE_4__vegetais_vegetais__["a" /* VegetaisPage */];
+        this.tab4Root = __WEBPACK_IMPORTED_MODULE_5__lista_pedido_lista_pedido__["a" /* ListaPedidoPage */];
+        this.indiceTab = 0;
+        if (this.serv.finalizouCompra) {
+            this.indiceTab = 3;
+        }
     }
     AbbasPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad AbbasPage');
     };
     AbbasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-abbas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/'<ion-tabs color="secondary">\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home" tabsHideOnSubPages="true" (ionChange)="valorCarrinho()"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Frutas" tabIcon="logo-apple" tabsHideOnSubPages="true" (ionChange)="valorCarrinho()"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Vegetais" tabIcon="ios-nutrition-outline" tabsHideOnSubPages="true" (ionChange)="valorCarrinho()"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/,
+            selector: 'page-abbas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/'<ion-tabs color="secondary" [selectedIndex]="indiceTab">\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Frutas" tabIcon="logo-apple" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Hortaliças" tabIcon="ios-nutrition-outline" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="Pedidos" tabIcon="ios-list-box-outline" tabsHideOnSubPages="true"></ion-tab>  \n</ion-tabs>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__["a" /* ServicosProvider */]])
     ], AbbasPage);
     return AbbasPage;
 }());
@@ -48,7 +58,52 @@ var AbbasPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 147:
+/***/ 137:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaPedidoPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the ListaPedidoPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ListaPedidoPage = /** @class */ (function () {
+    function ListaPedidoPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    ListaPedidoPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ListaPedidoPage');
+    };
+    ListaPedidoPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-lista-pedido',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/'\n<ion-header>\n\n  <ion-navbar color="secondary">\n    <ion-title>Pedidos</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content id="fundo">\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n        Pedidos Realizados\n      </ion-list-header>\n    \n      <ion-item>\n        <ion-label>Cord</ion-label>\n        <ion-radio value="cord"></ion-radio>\n      </ion-item>\n    \n      <ion-item>\n        <ion-label>Duesenberg</ion-label>\n        <ion-radio value="duesenberg"></ion-radio>\n      </ion-item>\n  \n    </ion-list>\n  </ion-card>  \n  <ion-card>\n    <ion-list>\n        <ion-list-header>\n          Pedidos em Andamento\n        </ion-list-header>\n      \n        <ion-item>\n          <ion-label>Cord</ion-label>\n          <ion-radio value="cord"></ion-radio>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Duesenberg</ion-label>\n          <ion-radio value="duesenberg"></ion-radio>\n        </ion-item>  \n      </ion-list>    \n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]])
+    ], ListaPedidoPage);
+    return ListaPedidoPage;
+}());
+
+//# sourceMappingURL=lista-pedido.js.map
+
+/***/ }),
+
+/***/ 148:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -61,40 +116,48 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 147;
+webpackEmptyAsyncContext.id = 148;
 
 /***/ }),
 
-/***/ 190:
+/***/ 191:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/cadastro-cliente/cadastro-cliente.module": [
-		452,
-		6
+		455,
+		7
 	],
 	"../pages/cadastro-endereco/cadastro-endereco.module": [
-		457,
-		5
+		454,
+		6
 	],
 	"../pages/cartao-credito/cartao-credito.module": [
-		453,
-		4
+		456,
+		5
 	],
 	"../pages/endereco-cobranca/endereco-cobranca.module": [
-		454,
+		457,
+		4
+	],
+	"../pages/escolher-entrega/escolher-entrega.module": [
+		459,
 		3
 	],
 	"../pages/fechar-pedido/fechar-pedido.module": [
-		455,
+		458,
 		2
 	],
+	"../pages/lista-pedido/lista-pedido.module": [
+		460,
+		8
+	],
 	"../pages/login/login.module": [
-		456,
+		461,
 		1
 	],
 	"../pages/registrar/registrar.module": [
-		458,
+		462,
 		0
 	]
 };
@@ -109,19 +172,19 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 190;
+webpackAsyncContext.id = 191;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 240:
+/***/ 241:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
@@ -154,7 +217,6 @@ var HomePage = /** @class */ (function () {
         this.toastCtrl = toastCtrl;
         this.buscaLetra = '';
         this.qtdeCarrinho = 0;
-        this.produtos = [];
         this.produtosItem = database.list('produtos', function (ref) { return ref.orderByChild('preco'); })
             .snapshotChanges()
             .map(function (changes) {
@@ -191,7 +253,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <!--<button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>--> \n    <ion-title>\n      Abiru\n    </ion-title>\n    <ion-buttons right (tap)="mostrarCarrinho()">\n      <button ion-button icon-only large>\n        <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n      </button>     \n    </ion-buttons>         \n  </ion-navbar>\n</ion-header>\n \n<ion-content id="fundo">\n  <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n  </ion-searchbar> \n\n  <ion-list>\n    <ion-card *ngFor="let produto of produtosItem | async">\n      <ion-grid no-padding>\n        <ion-row>\n          <ion-col text-center col-4>\n            <img [src]="produto.urlImg">\n          </ion-col>\n          <ion-col col-4>\n            <ion-row>\n              <ion-col text-center>\n                <div style="font-size: 15px">{{ produto.itemNome }}</div>\n              </ion-col>\n            </ion-row> \n            <ion-row>\n              <ion-col text-center>\n                <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n          <ion-col col-4>\n            <ion-row style="font-size: 25px">\n              <ion-col col-4 text-left>\n                <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n              </ion-col>\n              <ion-col col-4 text-center>\n                {{ produto.qtdeItem }}\n              </ion-col>\n              <ion-col col-4 text-right>\n                <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n              </ion-col> \n            </ion-row>\n            <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n              <ion-col text-center style="font-weight: bold">\n                {{ produto.medida }}\n              </ion-col>\n            </ion-row>            \n            <ion-row>\n              <ion-col text-center>\n                <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                  <!--<ion-icon name="cart"></ion-icon>-->\n                  Comprar\n                </button>\n              </ion-col>            \n            </ion-row> \n          </ion-col>\n        </ion-row>\n      </ion-grid> \n    </ion-card> \n  </ion-list> \n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <!--<button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>--> \n    <ion-title>\n      Tembiu\n    </ion-title>\n    <ion-buttons right (tap)="mostrarCarrinho()">\n      <button ion-button icon-only large>\n        <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n      </button>     \n    </ion-buttons>         \n  </ion-navbar>\n</ion-header>\n \n<ion-content id="fundo">\n  <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n  </ion-searchbar> \n\n  <ion-list>\n    <ion-card *ngFor="let produto of produtosItem | async">\n      <ion-grid no-padding>\n        <ion-row>\n          <ion-col text-center col-4>\n            <img [src]="produto.urlImg">\n          </ion-col>\n          <ion-col col-4>\n            <ion-row>\n              <ion-col text-center>\n                <div style="font-size: 15px">{{ produto.itemNome }}</div>\n              </ion-col>\n            </ion-row> \n            <ion-row>\n              <ion-col text-center>\n                <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n          <ion-col col-4>\n            <ion-row style="font-size: 25px">\n              <ion-col col-4 text-left>\n                <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n              </ion-col>\n              <ion-col col-4 text-center style="font-size: 20px">\n                {{ produto.qtdeItem }}\n              </ion-col>\n              <ion-col col-4 text-right>\n                <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n              </ion-col> \n            </ion-row>\n            <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n              <ion-col text-center style="font-weight: bold">\n                {{ produto.medida }}\n              </ion-col>\n            </ion-row>            \n            <ion-row>\n              <ion-col text-center>\n                <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                  <!--<ion-icon name="cart"></ion-icon>-->\n                  Comprar\n                </button>\n              </ion-col>            \n            </ion-row> \n          </ion-col>\n        </ion-row>\n      </ion-grid> \n    </ion-card> \n  </ion-list> \n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], HomePage);
@@ -202,14 +264,14 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 241:
+/***/ 242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrutasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__carrinho_carrinho__ = __webpack_require__(75);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
@@ -276,7 +338,7 @@ var FrutasPage = /** @class */ (function () {
     };
     FrutasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-frutas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>    \n      <ion-title>\n        Frutas\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center>\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/,
+            selector: 'page-frutas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>    \n      <ion-title>\n        Frutas\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], FrutasPage);
@@ -287,14 +349,14 @@ var FrutasPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 242:
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VegetaisPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
@@ -361,7 +423,7 @@ var VegetaisPage = /** @class */ (function () {
     };
     VegetaisPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-vegetais',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu">      \n        </ion-icon>\n      </button>    \n      <ion-title>\n        Vegetais\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center>\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/,
+            selector: 'page-vegetais',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu">      \n        </ion-icon>\n      </button>    \n      <ion-title>\n        Vegetais\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], VegetaisPage);
@@ -372,13 +434,108 @@ var VegetaisPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContatoPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ContatoPage = /** @class */ (function () {
+    function ContatoPage(navCtrl, navParams, viewCtrl, alertCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.alertCtrl = alertCtrl;
+        this.nome = "";
+        this.email = "";
+        this.cidade = "";
+        this.nomeVazio = false;
+        this.emailVazio = false;
+        this.emailInvalido = false;
+        this.cidadeVazio = false;
+    }
+    ContatoPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ContatoPage');
+    };
+    ContatoPage.prototype.verNomeVazio = function () {
+        this.nomeVazio = (this.nome.trim().length == 0);
+    };
+    ContatoPage.prototype.verEmailVazio = function () {
+        this.emailVazio = (this.email.trim().length == 0);
+    };
+    ContatoPage.prototype.validaEmail = function () {
+        var usuario = this.email.substring(0, this.email.indexOf("@"));
+        var dominio = this.email.substring(this.email.indexOf("@") + 1, this.email.length);
+        if ((usuario.length >= 1) &&
+            (dominio.length >= 3) &&
+            (usuario.search("@") == -1) &&
+            (dominio.search("@") == -1) &&
+            (usuario.search(" ") == -1) &&
+            (dominio.search(" ") == -1) &&
+            (dominio.search(".") != -1) &&
+            (dominio.indexOf(".") >= 1) &&
+            (dominio.lastIndexOf(".") < dominio.length - 1)) {
+            this.emailInvalido = false;
+        }
+        else {
+            this.emailInvalido = true;
+        }
+    };
+    ContatoPage.prototype.verCidadeVazio = function () {
+        this.cidadeVazio = (this.cidade.trim().length == 0);
+    };
+    ContatoPage.prototype.queroSerTembiu = function () {
+        var _this = this;
+        console.log("Nome: " + this.nome + " - E-mail: " + this.email + " - Cidade-Estado: " + this.cidade);
+        var alert = this.alertCtrl.create({
+            title: 'Tembiu',
+            subTitle: 'Em breve entraremos em contato!',
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function () {
+                        _this.fecharModal();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    ContatoPage.prototype.fecharModal = function () {
+        this.viewCtrl.dismiss();
+    };
+    ContatoPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-contato',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <ion-title text-left>Quero Ser Tembiu!</ion-title>\n    <ion-buttons right>\n    <button ion-button icon-only (tap)="fecharModal()">\n      <span ion-text showWhen="ios">Fechar</span>\n      <ion-icon showWhen="android" name="md-close"></ion-icon>\n    </button>\n    </ion-buttons>    \n  </ion-navbar>\n  </ion-header>\n  \n  <ion-content>\n    <p text-center text-wrap style="margin-left: 10px; margin-right: 10px; color:dimgray">O Tembiu é dedicado a um grupo seleto de serviços de alimentação, em prol da excelência na alimentação e do fortalecimento da agricultura familiar.</p>\n\n    <p text-center>Quer fazer parte dessa onda? Cadastre-se aqui.</p>\n    <ion-list>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Nome</ion-label>\n        <ion-input (keyup)="verNomeVazio()" type="text" [(ngModel)]="nome"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="nomeVazio" style="color: red">Digite o seu nome</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>E-mail</ion-label>\n        <ion-input (keyup)="verEmailVazio()" (ionBlur)="validaEmail()" type="text" [(ngModel)]="email"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="emailVazio" style="color: red">Digite o seu email</p>\n      <p text-center *ngIf="emailInvalido" style="color: red">Email inválido</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Cidade e Estado</ion-label>\n        <ion-input (keyup)="verCidadeVazio()" type="text" [(ngModel)]="cidade"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="cidadeVazio" style="color: red">Digite a sua cidade e estado</p>\n   \n    </ion-list> \n\n    <ion-row>\n      <ion-col style="margin-left: 20px; margin-right: 20px">\n        <button ion-button block outline color="secondary" (tap)="queroSerTembiu()">Enviar</button>\n      </ion-col>\n    </ion-row>   \n  \n  </ion-content>\n  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
+    ], ContatoPage);
+    return ContatoPage;
+}());
+
+//# sourceMappingURL=contato.js.map
+
+/***/ }),
+
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(311);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -386,35 +543,39 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 309:
+/***/ 311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(451);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_home_home__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(453);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_home_home__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_servicos_servicos__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pluritech_ion_mask__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pluritech_ion_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__pluritech_ion_mask__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -451,22 +612,26 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
                 __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicModule"].forRoot(__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */], {}, {
                     links: [
+                        { loadChildren: '../pages/cadastro-endereco/cadastro-endereco.module#CadastroEnderecoPageModule', name: 'CadastroEnderecoPage', segment: 'cadastro-endereco', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cadastro-cliente/cadastro-cliente.module#CadastroClientePageModule', name: 'CadastroClientePage', segment: 'cadastro-cliente', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/cartao-credito/cartao-credito.module#CartaoCreditoPageModule', name: 'CartaoCreditoPage', segment: 'cartao-credito', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/endereco-cobranca/endereco-cobranca.module#EnderecoCobrancaPageModule', name: 'EnderecoCobrancaPage', segment: 'endereco-cobranca', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/fechar-pedido/fechar-pedido.module#FecharPedidoPageModule', name: 'FecharPedidoPage', segment: 'fechar-pedido', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/escolher-entrega/escolher-entrega.module#EscolherEntregaPageModule', name: 'EscolherEntregaPage', segment: 'escolher-entrega', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/lista-pedido/lista-pedido.module#ListaPedidoPageModule', name: 'ListaPedidoPage', segment: 'lista-pedido', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cadastro-endereco/cadastro-endereco.module#CadastroEnderecoPageModule', name: 'CadastroEnderecoPage', segment: 'cadastro-endereco', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/registrar/registrar.module#RegistrarPageModule', name: 'RegistrarPage', segment: 'registrar', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_16__pluritech_ion_mask__["IonMaskModule"].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__["IonMaskModule"].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_6_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
                 __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__["b" /* AngularFireAuthModule */],
@@ -479,13 +644,15 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
                 __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicErrorHandler"] },
-                __WEBPACK_IMPORTED_MODULE_15__providers_servicos_servicos__["a" /* ServicosProvider */]
+                __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__["a" /* ServicosProvider */]
             ]
         })
     ], AppModule);
@@ -496,16 +663,16 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 40:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServicosProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -537,7 +704,10 @@ var ServicosProvider = /** @class */ (function () {
         this.database = database;
         this.qtdeCarrinho = 0;
         this.carrinho = [];
+        this.totalPagar = "";
+        this.finalizouCompra = false;
         this.usuarioLogado = {
+            key: "",
             clienteId: "",
             email: "",
             nomeFantasia: "",
@@ -551,7 +721,7 @@ var ServicosProvider = /** @class */ (function () {
                 cep: "",
                 cidade: "",
                 estado: "",
-                mesmoEnderecoCobranca: "S"
+                mesmoEnderecoCobranca: true
             },
             enderecoCobranca: {
                 endereco: "",
@@ -567,6 +737,10 @@ var ServicosProvider = /** @class */ (function () {
                 nomeImpresso: "",
                 validade: "",
                 codigoSeguranca: ""
+            },
+            entregaEscolhida: {
+                dataEntrega: "",
+                periodoEntrega: ""
             }
         };
     }
@@ -615,7 +789,7 @@ var ServicosProvider = /** @class */ (function () {
     ServicosProvider.prototype.produtoAdicionado = function () {
         var toast = this.toastCtrl.create({
             message: 'Produto adicionado ao carrinho.',
-            duration: 3000,
+            duration: 2000,
             position: 'middle'
         });
         toast.present();
@@ -623,7 +797,7 @@ var ServicosProvider = /** @class */ (function () {
     ServicosProvider.prototype.igualZero = function (medida) {
         var toast = this.toastCtrl.create({
             message: 'Por favor, ' + medida + ' não pode ser igual 0.',
-            duration: 3000,
+            duration: 2000,
             position: 'middle'
         });
         toast.present();
@@ -650,60 +824,48 @@ var ServicosProvider = /** @class */ (function () {
         var _this = this;
         this.usuarioLogado.clienteId = usuario.uid;
         this.usuarioLogado.email = usuario.email;
-        var cliente = this.database.list('cadastroCliente', function (ref) { return ref.orderByChild('clienteId').equalTo(usuario.uid); })
+        this.database.list('clientes', function (ref) { return ref.orderByChild('clienteId').equalTo(usuario.uid); })
             .snapshotChanges()
             .map(function (changes) {
             return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
         }).forEach(function (item) {
             if (item.length > 0) {
-                _this.usuarioLogado.nomeFantasia = item[0].nomeFantasia;
-                _this.usuarioLogado.cnpj = item[0].cnpj;
-                _this.usuarioLogado.telefone = item[0].telefone;
-            }
-        });
-        this.database.list('enderecoEntrega', function (ref) { return ref.orderByChild('clienteId').equalTo(usuario.uid); })
-            .snapshotChanges()
-            .map(function (changes) {
-            return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
-        }).forEach(function (entrega) {
-            if (entrega.length > 0) {
-                _this.usuarioLogado.enderecoEntrega.endereco = entrega[0].endereco;
-                _this.usuarioLogado.enderecoEntrega.numero = entrega[0].numero;
-                _this.usuarioLogado.enderecoEntrega.complemento = entrega[0].complemento;
-                _this.usuarioLogado.enderecoEntrega.bairro = entrega[0].bairro;
-                _this.usuarioLogado.enderecoEntrega.cep = entrega[0].cep;
-                _this.usuarioLogado.enderecoEntrega.cidade = entrega[0].cidade;
-                _this.usuarioLogado.enderecoEntrega.estado = entrega[0].estado;
-                _this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca = entrega[0].mesmoEnderecoCobranca;
-            }
-        });
-        if (this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca == "N") {
-            this.database.list('enderecoCobranca', function (ref) { return ref.orderByChild('clienteId').equalTo(usuario.uid); })
-                .snapshotChanges()
-                .map(function (changes) {
-                return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
-            }).forEach(function (cobranca) {
-                if (cobranca.length > 0) {
-                    _this.usuarioLogado.enderecoCobranca.endereco = cobranca[0].endereco;
-                    _this.usuarioLogado.enderecoCobranca.numero = cobranca[0].numero;
-                    _this.usuarioLogado.enderecoCobranca.complemento = cobranca[0].complemento;
-                    _this.usuarioLogado.enderecoCobranca.bairro = cobranca[0].bairro;
-                    _this.usuarioLogado.enderecoCobranca.cep = cobranca[0].cep;
-                    _this.usuarioLogado.enderecoCobranca.cidade = cobranca[0].cidade;
-                    _this.usuarioLogado.enderecoCobranca.estado = cobranca[0].estado;
+                _this.usuarioLogado.key = item[0].key;
+                if (item[0].cliente) {
+                    _this.usuarioLogado.nomeFantasia = item[0].cliente.nomeFantasia;
+                    _this.usuarioLogado.cnpj = item[0].cliente.cnpj;
+                    _this.usuarioLogado.telefone = item[0].cliente.telefone;
                 }
-            });
-        }
-        this.database.list('cartaoCredito', function (ref) { return ref.orderByChild('clienteId').equalTo(usuario.uid); })
-            .snapshotChanges()
-            .map(function (changes) {
-            return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
-        }).forEach(function (cartao) {
-            if (cartao.length > 0) {
-                _this.usuarioLogado.cartaoCredito.numero = cartao[0].numero;
-                _this.usuarioLogado.cartaoCredito.nomeImpresso = cartao[0].nomeImpresso;
-                _this.usuarioLogado.cartaoCredito.validade = cartao[0].validade;
-                _this.usuarioLogado.cartaoCredito.codigoSeguranca = cartao[0].codigoSeguranca;
+                if (item[0].enderecoEntrega) {
+                    _this.usuarioLogado.enderecoEntrega.endereco = item[0].enderecoEntrega.endereco;
+                    _this.usuarioLogado.enderecoEntrega.numero = item[0].enderecoEntrega.numero;
+                    _this.usuarioLogado.enderecoEntrega.complemento = item[0].enderecoEntrega.complemento;
+                    _this.usuarioLogado.enderecoEntrega.bairro = item[0].enderecoEntrega.bairro;
+                    _this.usuarioLogado.enderecoEntrega.cep = item[0].enderecoEntrega.cep;
+                    _this.usuarioLogado.enderecoEntrega.cidade = item[0].enderecoEntrega.cidade;
+                    _this.usuarioLogado.enderecoEntrega.estado = item[0].enderecoEntrega.estado;
+                    _this.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca = item[0].enderecoEntrega.mesmoEnderecoCobranca;
+                }
+                if (item[0].enderecoCobranca) {
+                    _this.usuarioLogado.enderecoCobranca.endereco = item[0].enderecoCobranca.endereco;
+                    _this.usuarioLogado.enderecoCobranca.numero = item[0].enderecoCobranca.numero;
+                    _this.usuarioLogado.enderecoCobranca.complemento = item[0].enderecoCobranca.complemento;
+                    _this.usuarioLogado.enderecoCobranca.bairro = item[0].enderecoCobranca.bairro;
+                    _this.usuarioLogado.enderecoCobranca.cep = item[0].enderecoCobranca.cep;
+                    _this.usuarioLogado.enderecoCobranca.cidade = item[0].enderecoCobranca.cidade;
+                    _this.usuarioLogado.enderecoCobranca.estado = item[0].enderecoCobranca.estado;
+                }
+                if (item[0].cartaoCredito) {
+                    _this.usuarioLogado.cartaoCredito.numero = item[0].cartaoCredito.numero;
+                    _this.usuarioLogado.cartaoCredito.nomeImpresso = item[0].cartaoCredito.nomeImpresso;
+                    _this.usuarioLogado.cartaoCredito.validade = item[0].cartaoCredito.validade;
+                    _this.usuarioLogado.cartaoCredito.codigoSeguranca = item[0].cartaoCredito.codigoSeguranca;
+                }
+                if (item[0].entregaEscolhida) {
+                    _this.usuarioLogado.entregaEscolhida.dataEntrega = item[0].entregaEscolhida.dataEntrega;
+                    _this.usuarioLogado.entregaEscolhida.periodoEntrega = item[0].entregaEscolhida.periodoEntrega;
+                }
+                //console.log("cliente " + JSON.stringify(this.usuarioLogado));
             }
         });
     };
@@ -718,18 +880,18 @@ var ServicosProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 451:
+/***/ 453:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_abbas_abbas__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -749,6 +911,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MyApp = /** @class */ (function () {
     function MyApp(platform, statusBar, splashScreen, afAuth, serv) {
         var _this = this;
+        this.afAuth = afAuth;
         this.serv = serv;
         afAuth.authState.subscribe(function (user) {
             if (user) {
@@ -766,8 +929,11 @@ var MyApp = /** @class */ (function () {
             splashScreen.hide();
         });
     }
+    MyApp.prototype.sair = function () {
+        this.afAuth.auth.signOut();
+    };
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\app\app.html"*/'<ion-menu id="menuApp" [content]="conteudo"  color="secondary">\n    <ion-header>\n      <ion-toolbar color="secondary">\n        <ion-title style="text-align: left">Menu </ion-title>\n      </ion-toolbar>\n    </ion-header>\n  \n    <ion-content color="secondary">\n  \n      <ion-list color="secondary">\n  \n        <ion-item color="secondary"> \n          <button menuClose ion-button full clear color="light" style="font-size: 80%">Configurações</button>\n        </ion-item>\n        <ion-item color="secondary">\n          <button menuClose ion-button full clear color="light" style="font-size: 80%">Perfil</button>\n        </ion-item>\n        <ion-item color="secondary">\n          <button menuClose ion-button full clear color="light" style="font-size: 80%" >Sair</button>\n        </ion-item>\n  \n      </ion-list>\n    </ion-content>\n  \n  </ion-menu>\n\n<ion-nav #conteudo [root]="rootPage" swipeBackEnabled="false"  color="secondary"></ion-nav>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\app\app.html"*/'<ion-menu id="menuApp" [content]="conteudo"  color="secondary">\n    <ion-header>\n      <ion-toolbar color="secondary">\n        <ion-title style="text-align: left">Menu </ion-title>\n      </ion-toolbar>\n    </ion-header>\n  \n    <ion-content color="secondary">\n  \n      <ion-list color="secondary">\n  \n        <ion-item color="secondary"> \n          <button menuClose ion-button full clear color="light" style="font-size: 80%">Configurações</button>\n        </ion-item>\n        <ion-item color="secondary">\n          <button menuClose ion-button full clear color="light" style="font-size: 80%">Perfil</button>\n        </ion-item>\n        <ion-item color="secondary">\n          <button menuClose ion-button full clear color="light" style="font-size: 80%" (tap)="sair()">Sair</button>\n        </ion-item>\n  \n      </ion-list>\n    </ion-content>\n  \n  </ion-menu>\n\n<ion-nav #conteudo [root]="rootPage" swipeBackEnabled="false"  color="secondary"></ion-nav>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Platform"], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__["a" /* ServicosProvider */]])
     ], MyApp);
@@ -784,8 +950,8 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CarrinhoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -799,13 +965,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var CarrinhoPage = /** @class */ (function () {
-    function CarrinhoPage(navCtrl, navParams, viewCtrl, serv, alertCtrl, modalCtrl) {
+    function CarrinhoPage(navCtrl, navParams, viewCtrl, serv, modalCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
         this.serv = serv;
-        this.alertCtrl = alertCtrl;
         this.modalCtrl = modalCtrl;
         this.itensCarrinho = [];
         this.totalApagar = '0,00';
@@ -814,7 +979,7 @@ var CarrinhoPage = /** @class */ (function () {
             elem.subTotal = _this.serv.calculaSubTotal(elem.preco, elem.qtdeItem);
             _this.totalApagar = _this.serv.calcularTotal(elem.subTotal, _this.totalApagar, '+');
         });
-        console.log("usuarioLogago" + JSON.stringify(this.serv.usuarioLogado));
+        // console.log("usuarioLogago" + JSON.stringify(this.serv.usuarioLogado));
     }
     CarrinhoPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad CarrinhoPage');
@@ -853,16 +1018,16 @@ var CarrinhoPage = /** @class */ (function () {
         }
     };
     CarrinhoPage.prototype.fecharPedido = function () {
+        this.serv.totalPagar = this.totalApagar;
         if (this.itensCarrinho.length > 0) {
             if (this.serv.usuarioLogado.nomeFantasia == '') {
-                this.navCtrl.push('CadastroClientePage');
+                this.modalCtrl.create('CadastroClientePage').present();
             }
             else if (this.serv.usuarioLogado.enderecoEntrega.endereco == '') {
                 this.modalCtrl.create('CadastroEnderecoPage').present();
-            }
-            else if (this.serv.usuarioLogado.cartaoCredito.numero == '') {
-                this.modalCtrl.create('CartaoCreditoPage').present();
-            }
+            } /*else if(this.serv.usuarioLogado.cartaoCredito.numero == ''){
+              this.modalCtrl.create('CartaoCreditoPage').present();
+            }*/
             else {
                 this.navCtrl.push('FecharPedidoPage');
             }
@@ -870,9 +1035,9 @@ var CarrinhoPage = /** @class */ (function () {
     };
     CarrinhoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-carrinho',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/'<ion-header>\n    <ion-toolbar color="secondary">\n      <ion-title>\n        Carrinho\n      </ion-title>\n      <ion-buttons start (tap)="fecharModal()">\n        <button ion-button>\n          <span ion-text showWhen="ios">Fechar</span>\n          <ion-icon showWhen="android" name="md-close"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  \n<ion-content>\n  <ion-list>\n    <ion-item text-wrap *ngFor="let item of itensCarrinho">\n      <ion-row >\n        <ion-col col-3>\n          <img [src]="item.urlImg" width="70px" height="70px">\n        </ion-col>\n        <ion-col>\n          <ion-row>\n            <ion-col col-6 text-left style="font-size: 15px">\n              {{ item.itemNome }}\n            </ion-col>\n            <ion-col col-2 text-right  style="font-size: 25px">\n              <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>\n            </ion-col>\n            <ion-col col-2 text-center style="font-size: 25px">\n              {{ item.qtdeItem }}\n            </ion-col>\n            <ion-col col-2 text-left  style="font-size: 25px">\n              <ion-icon name="ios-add-circle-outline" (tap)="adicionar(item)"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>  \n            <ion-col col-4 text-left style="font-size: 15px">\n             R$ {{ item.preco }}\n            </ion-col>   \n            <ion-col text-right style="color:slategrey" style="font-size: 15px; font-weight: bold">\n              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>\n            </ion-col>\n          </ion-row> \n        </ion-col>         \n      </ion-row>  \n    </ion-item>\n  </ion-list>\n</ion-content>\n<ion-footer>\n  <ion-item>\n    Total\n    <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>\n  </ion-item>\n  <ion-toolbar color="secondary">\n    <button ion-button full color="danger" (tap)="fecharPedido()">Fechar Pedido</button>\n  </ion-toolbar>\n</ion-footer>  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/,
+            selector: 'page-carrinho',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/'<ion-header>\n    <ion-toolbar color="secondary">\n      <ion-title>\n        Carrinho\n      </ion-title>\n      <ion-buttons start (tap)="fecharModal()">\n        <button ion-button>\n          <span ion-text showWhen="ios">Fechar</span>\n          <ion-icon showWhen="android" name="md-close"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  \n<ion-content>\n  <ion-list>\n    <ion-item text-wrap *ngFor="let item of itensCarrinho">\n      <ion-row >\n        <ion-col col-3>\n          <img [src]="item.urlImg" width="70px" height="70px">\n        </ion-col>\n        <ion-col>\n          <ion-row>\n            <ion-col col-6 text-left style="font-size: 15px">\n              {{ item.itemNome }}\n            </ion-col>\n            <ion-col col-2 text-right  style="font-size: 25px">\n              <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>\n            </ion-col>\n            <ion-col col-2 text-center style="font-size: 20px">\n              {{ item.qtdeItem }}\n            </ion-col>\n            <ion-col col-2 text-left  style="font-size: 25px">\n              <ion-icon name="ios-add-circle-outline" (tap)="adicionar(item)"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>  \n            <ion-col col-4 text-left style="font-size: 15px">\n             R$ {{ item.preco }}\n            </ion-col>   \n            <ion-col text-right style="color:slategrey" style="font-size: 15px; font-weight: bold">\n              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>\n            </ion-col>\n          </ion-row> \n        </ion-col>         \n      </ion-row>  \n    </ion-item>\n  </ion-list>\n</ion-content>\n<ion-footer>\n  <ion-item>\n    Total\n    <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>\n  </ion-item>\n  <ion-toolbar color="secondary">\n    <button ion-button full color="primary" (tap)="fecharPedido()">Fechar Pedido</button>\n  </ion-toolbar>\n</ion-footer>  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"]])
     ], CarrinhoPage);
     return CarrinhoPage;
 }());
@@ -881,5 +1046,5 @@ var CarrinhoPage = /** @class */ (function () {
 
 /***/ })
 
-},[289]);
+},[291]);
 //# sourceMappingURL=main.js.map

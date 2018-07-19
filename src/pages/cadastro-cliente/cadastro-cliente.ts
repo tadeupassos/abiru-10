@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Form, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { ServicosProvider } from '../../providers/servicos/servicos';
 
@@ -18,7 +18,7 @@ export class CadastroClientePage {
   cnpjVazio = false;
   telefoneVazio = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase, public serv: ServicosProvider, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase, public serv: ServicosProvider, public modalCtrl: ModalController, public viewCtrl: ViewController) {
 
   }
 
@@ -39,15 +39,19 @@ export class CadastroClientePage {
     }else if(this.telefone.trim().length == 0){
       this.telefoneVazio = true;
     }else{
-
-      this.database.list('cadastroCliente')
+      this.database.list('clientes')
         .push({ 
             clienteId: this.serv.usuarioLogado.clienteId,
-            nomeFantasia: this.nomeFantasia,
-            cnpj: this.cnpj,
-            telefone: this.telefone
-        }).then(() => {
-
+            cliente: {
+              nomeFantasia: this.nomeFantasia,
+              cnpj: this.cnpj,
+              telefone: this.telefone
+            },
+            enderecoEntrega: "",
+            enderecoCobranca: "",
+            cartaoCredito: "",
+            entregaEscolhida: ""
+        }).then((result) => {
             if(this.serv.usuarioLogado.enderecoEntrega.endereco == ""){
               this.modalCtrl.create('CadastroEnderecoPage').present();
             }else if(this.serv.usuarioLogado.cartaoCredito.numero == ""){
@@ -55,6 +59,8 @@ export class CadastroClientePage {
             }else{
               this.navCtrl.push('FecharPedidoPage');
             }
+            this.viewCtrl.dismiss();
+            this.serv.usuarioLogado.key = result.key;
         });
     }
   }
@@ -93,5 +99,9 @@ export class CadastroClientePage {
   campoNomeVazio(){
     this.nomeVazio = (this.nomeFantasia.trim().length == 0);
   }
+
+  fecharModal(){
+    this.viewCtrl.dismiss();
+  }  
  
 }

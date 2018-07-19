@@ -21,6 +21,12 @@ export class CartaoCreditoPage {
   codigoVazio = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase, public serv: ServicosProvider, public viewCtrl: ViewController) {
+    if(this.navParams.data.cartao){
+      this.numero = this.navParams.data.cartao.numero;
+      this.nomeImpresso = this.navParams.data.cartao.nomeImpresso;
+      this.validade = this.navParams.data.cartao.validade;
+      this.codigoSeguranca = this.navParams.data.cartao.codigoSeguranca;
+    }
   }
 
   ionViewDidLoad() {
@@ -28,7 +34,6 @@ export class CartaoCreditoPage {
   }
 
   salvarDados(){
-
     if(this.numero.trim().length == 0){
       this.numeroVazio = true;
     }else if(this.nomeImpresso.trim().length == 0){
@@ -38,15 +43,23 @@ export class CartaoCreditoPage {
     }else if(this.codigoSeguranca.trim().length == 0){
       this.codigoVazio = true;
     }else{
-
-      this.database.list('cartaoCredito')
-        .push({ 
-            clienteId: this.serv.usuarioLogado.clienteId,
-            numero: this.numero,
-            nomeImpresso: this.nomeImpresso,
-            validade: this.validade,
-            codigoSeguranca: this.codigoSeguranca
-          }).then(() => { this.navCtrl.push('FecharPedidoPage') });
+      let chave = this.serv.usuarioLogado.key;
+      this.database.list('clientes')
+        .update(chave, {
+            cartaoCredito: {
+              numero: this.numero,
+              nomeImpresso: this.nomeImpresso,
+              validade: this.validade,
+              codigoSeguranca: this.codigoSeguranca     
+            }
+        }).then(() =>{
+          this.serv.usuarioLogado.cartaoCredito.numero = this.numero,
+          this.serv.usuarioLogado.cartaoCredito.nomeImpresso = this.nomeImpresso,
+          this.serv.usuarioLogado.cartaoCredito.validade = this.validade,
+          this.serv.usuarioLogado.cartaoCredito.codigoSeguranca = this.codigoSeguranca
+          this.navCtrl.push('FecharPedidoPage'); 
+          this.viewCtrl.dismiss();
+        });
     }
   }
   

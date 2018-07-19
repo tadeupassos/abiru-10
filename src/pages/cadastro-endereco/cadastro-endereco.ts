@@ -25,8 +25,23 @@ export class CadastroEnderecoPage {
   cidadeVazio = false;
   estadoVazio = false;
   bairroVazio = false;
+
+  mostrarOpcaoEnderecoCobranca = true;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase, public serv: ServicosProvider, public viewCtrl: ViewController, public modalCtrl: ModalController) {
+
+    if(this.navParams.data.endereco){
+      this.endereco = this.navParams.data.endereco.endereco;
+      this.numero = this.navParams.data.endereco.numero;
+      this.complemento = this.navParams.data.endereco.complemento;
+      this.bairro = this.navParams.data.endereco.bairro;
+      this.cep = this.navParams.data.endereco.cep;
+      this.cidade = this.navParams.data.endereco.cidade;
+      this.estado = this.navParams.data.endereco.estado;
+
+      this.mostrarOpcaoEnderecoCobranca = false
+    }
+
   }
 
   ionViewDidLoad() {
@@ -34,7 +49,6 @@ export class CadastroEnderecoPage {
   }
 
   salvarDados(){
-
     if(this.cep.trim().length == 0){
       this.cepVazio = true;
     }else if(this.endereco.trim().length == 0){
@@ -47,30 +61,38 @@ export class CadastroEnderecoPage {
       this.cidadeVazio = true;
     }else if(this.estado.trim().length == 0){
       this.estadoVazio = true;
-    }else{
-
-      this.database.list('enderecoEntrega')
-        .push({ 
-            clienteId: this.serv.usuarioLogado.clienteId,
+    }else{    
+      let chave = this.serv.usuarioLogado.key;
+      this.database.list('clientes')
+      .update(chave, {
+        enderecoEntrega: {
             endereco: this.endereco,
             numero: this.numero,
             complemento: this.complemento,
             bairro: this.bairro,
             cep: this.cep,
             cidade: this.cidade,
-            estado: this.estado,
-            mesmoEnderecoCobranca: this.mesmoEnderecoCobranca
-        }).then(() => {
-
-            if(!this.mesmoEnderecoCobranca){
-              this.modalCtrl.create('EnderecoCobrancaPage').present();
-            }else if(this.serv.usuarioLogado.cartaoCredito.numero == ""){
-              this.modalCtrl.create('CartaoCreditoPage').present();
-            }else{
-              this.navCtrl.push('FecharPedidoPage');
-            }
-        });
-      }
+            estado: this.estado
+        }  
+      }).then(() =>{
+          this.serv.usuarioLogado.enderecoEntrega.endereco = this.endereco;
+          this.serv.usuarioLogado.enderecoEntrega.numero = this.numero;
+          this.serv.usuarioLogado.enderecoEntrega.complemento = this.complemento;
+          this.serv.usuarioLogado.enderecoEntrega.bairro = this.bairro;
+          this.serv.usuarioLogado.enderecoEntrega.cep = this.cep;
+          this.serv.usuarioLogado.enderecoEntrega.cidade = this.cidade;
+          this.serv.usuarioLogado.enderecoEntrega.estado = this.estado;
+          this.serv.usuarioLogado.enderecoEntrega.mesmoEnderecoCobranca = this.mesmoEnderecoCobranca;
+          if(!this.mesmoEnderecoCobranca){
+            this.modalCtrl.create('EnderecoCobrancaPage').present();
+          }/*else if(this.serv.usuarioLogado.cartaoCredito.numero == ""){
+            this.modalCtrl.create('CartaoCreditoPage').present();
+          }*/else{
+            this.navCtrl.push('FecharPedidoPage');
+          }
+          this.viewCtrl.dismiss();
+      });
+    }
   }
 
   numeroCep(){

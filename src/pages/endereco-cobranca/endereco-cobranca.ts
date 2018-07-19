@@ -47,24 +47,25 @@ export class EnderecoCobrancaPage {
     }else if(this.estado.trim().length == 0){
       this.estadoVazio = true;
     }else{
-
-      this.database.list('enderecoCobranca')
-        .push({ 
-            clienteId: this.serv.usuarioLogado.clienteId,
-            endereco: this.endereco,
-            numero: this.numero,
-            complemento: this.complemento,
-            bairro: this.bairro,
-            cep: this.cep,
-            cidade: this.cidade,
-            estado: this.estado
-        }).then(() => {
-
-            if(this.serv.usuarioLogado.cartaoCredito.numero == ""){
-              this.modalCtrl.create('CartaoCreditoPage').present();
-            }else{
-              this.navCtrl.push('FecharPedidoPage');
+      let chave = this.serv.usuarioLogado.key;
+      this.database.list('clientes')
+        .update(chave, {
+            EnderecoCobranca: {
+              endereco: this.endereco,
+              numero: this.numero,
+              complemento: this.complemento,
+              bairro: this.bairro,
+              cep: this.cep,
+              cidade: this.cidade,
+              estado: this.estado
             }
+        }).then(() => {
+            /*if(this.serv.usuarioLogado.cartaoCredito.numero == ""){
+              this.modalCtrl.create('CartaoCreditoPage').present();
+            }else{*/
+              this.navCtrl.push('FecharPedidoPage');
+            //}
+            this.viewCtrl.dismiss();
         });
     }
   }

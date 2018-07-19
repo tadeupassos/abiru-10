@@ -1,24 +1,25 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <ion-title>
-      Tembiu
-    </ion-title>
-
     <ion-buttons right>
+      <button ion-button icon-only (tap)="fecharModal()">
+        <span ion-text showWhen="ios">Fechar</span>
+        <ion-icon showWhen="android" name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>    
+    <!--<ion-buttons right>
       <button ion-button icon-only (tap)="salvarDados()">
         <ion-icon name="md-checkmark"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
+    <ion-title>Complete o cadastro</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
   <ion-list>
-
-    <ion-item no-lines>
+    <!--<ion-item no-lines>
         <div text-center style="font-weight: bold; font-size: 120%">Complete o cadastro</div>
-    </ion-item>
+    </ion-item>-->
 
     <ion-item no-lines text-wrap>
       <div text-center style="color:dimgray; font-size: 100%; margin-left: 20px; margin-right: 20px">Falta pouco! Complete o seu cadastro abaixo e finalize sua compra.</div>
@@ -43,5 +44,5 @@
     <p text-center *ngIf="telefoneVazio" style="color: red">Digite o Telefone</p>
 
   </ion-list> 
-
+  <button ion-button block outline color="secondary" (tap)="salvarDados()">Salvar</button>
 </ion-content>

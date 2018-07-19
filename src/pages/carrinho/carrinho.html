@@ -27,7 +27,7 @@
             <ion-col col-2 text-right  style="font-size: 25px">
               <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>
             </ion-col>
-            <ion-col col-2 text-center style="font-size: 25px">
+            <ion-col col-2 text-center style="font-size: 20px">
               {{ item.qtdeItem }}
             </ion-col>
             <ion-col col-2 text-left  style="font-size: 25px">
@@ -53,6 +53,6 @@
     <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>
   </ion-item>
   <ion-toolbar color="secondary">
-    <button ion-button full color="danger" (tap)="fecharPedido()">Fechar Pedido</button>
+    <button ion-button full color="primary" (tap)="fecharPedido()">Fechar Pedido</button>
   </ion-toolbar>
 </ion-footer>  

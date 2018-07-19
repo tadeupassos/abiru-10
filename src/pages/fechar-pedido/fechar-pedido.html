@@ -1,31 +1,120 @@
-<ion-content id="fundo">
+<ion-header>
+    <ion-navbar color="secondary">
+      <ion-title>
+        Finalizar Compra
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content padding>
 
-    <ion-card text-wrap>
-      <h1 color="secondary" text-center>Pedido Enviado!</h1>
-    </ion-card>
+  <div class="comprados">
+    <ion-row>
+      <ion-col text-left>
+        {{ mostrarQtdeCarrinho }}
+      </ion-col>
+      <ion-col text-right>
+        R$ {{ totalCompra }}
+      </ion-col>
+    </ion-row>
+    <!--<ion-row class="menosMargem">
+      <ion-col>
+        <span ion-text color="primary">Vizualizar produtos</span>
+      </ion-col>
+    </ion-row>-->   
+    <ion-row class="menosMargem">
+      <ion-col text-left>
+        Valor do frete
+      </ion-col>
+      <ion-col text-right>
+        R$ {{ valorFrete }}
+      </ion-col>
+    </ion-row>
+    <ion-row style="font-weight: bold">
+      <ion-col text-left>
+        Total a pagar
+      </ion-col>
+      <ion-col text-right>
+        R$ {{ totalPagar }}
+      </ion-col>
+    </ion-row>
+  </div>
 
-    <ion-card>
-      <ion-row>
-        <ion-col text-center style="font-size: 20px">
-          Segue o código do seu pedido:
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col text-center style="font-size: 60px">
-          15654
-        </ion-col>
-      </ion-row>
-    </ion-card>
+  <div class="tituloQuadrado">Endereço de entrega</div>
+  <div class="endereco">
+    <ion-row>
+      <ion-col text-left>
+        {{ final.nomeFantasia }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="menosMargem">
+      <ion-col text-left text-wrap>
+        {{ final.enderecoEntrega.endereco }}, {{ final.enderecoEntrega.numero }} 
+      </ion-col>
+    </ion-row>   
+    <ion-row *ngIf="(final.enderecoEntrega.complemento)"  class="menosMargem">
+      <ion-col>
+        {{ final.enderecoEntrega.complemento }}
+      </ion-col>
+    </ion-row> 
+    <ion-row class="menosMargem">
+      <ion-col text-left>
+        {{ final.enderecoEntrega.bairro }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="menosMargem">
+      <ion-col text-left>
+        {{ final.enderecoEntrega.cidade }} - {{ final.enderecoEntrega.estado }}, CEP {{final.enderecoEntrega.cep}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <span ion-text color="primary" (tap)="alterarEndereco()">Alterar endereço de entrega</span>
+      </ion-col>
+    </ion-row>    
+  </div>
 
-    <ion-card>
-      <ion-row>
-        <ion-col text-center style="font-size: 20px">
-          Enviamos o código do seu pedido para o seu email.
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <button ion-button full round (tap)="voltar()">Ok</button>
+  <!--<div class="tituloQuadrado">Pagamento</div>
+  <div class="endereco">
+    <ion-row>
+      <ion-col>
+        Cartão Fina: <span style="font-weight: bold">{{ numeroFinal }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="menosMargem" text-wrap>    
+      <ion-col>
+        Nome Impresso: <span style="font-weight: bold">{{ final.cartaoCredito.nomeImpresso }}</span>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="menosMargem">
+      <ion-col>
+        Validade: <span style="font-weight: bold">{{ final.cartaoCredito.validade }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <span ion-text color="primary" (tap)="alterarCartao()">Alterar cartão</span>
+      </ion-col>
+    </ion-row>       
+  </div>  -->
+  <div class="tituloQuadrado">Desejo que seja entregue em</div>
+  <div class="endereco">
+    <ion-row>
+      <ion-col>
+        Data: {{ final.entregaEscolhida.dataEntrega }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="menosMargem" text-wrap>    
+      <ion-col>
+        Período: {{ final.entregaEscolhida.periodoEntrega }}
+      </ion-col>
+    </ion-row>  
+    <ion-row>
+      <ion-col text-center>
+        <span ion-text color="primary" (tap)="alterarDataEntrega()">Alterar data entrega</span>
+      </ion-col>
+    </ion-row>             
+  </div>
+  <p style="margin-top: 15px" text-center><button ion-button outline (tap)="finalizarCompra()" color="secondary">Finalizar Compra</button></p>
 
 
 </ion-content>

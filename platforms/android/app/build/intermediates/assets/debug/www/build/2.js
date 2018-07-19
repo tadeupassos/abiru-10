@@ -1,14 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 453:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FecharPedidoPageModule", function() { return FecharPedidoPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fechar_pedido__ = __webpack_require__(457);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fechar_pedido__ = __webpack_require__(464);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,14 +38,15 @@ var FecharPedidoPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 457:
+/***/ 464:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FecharPedidoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__abbas_abbas__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__ = __webpack_require__(40);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,28 +59,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the FecharPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 var FecharPedidoPage = /** @class */ (function () {
-    function FecharPedidoPage(navCtrl, navParams) {
+    function FecharPedidoPage(navCtrl, navParams, serv, modalCtrl, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.serv = serv;
+        this.modalCtrl = modalCtrl;
+        this.alertCtrl = alertCtrl;
+        this.valorFrete = "7,00";
+        this.final = this.serv.usuarioLogado;
     }
-    FecharPedidoPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad FecharPedidoPage');
+    FecharPedidoPage.prototype.ionViewWillEnter = function () {
+        this.totalPagar = this.serv.calcularTotal(this.valorFrete, this.serv.totalPagar, '+');
+        this.totalCompra = this.serv.totalPagar;
+        this.mostrarQtdeCarrinho = (this.serv.qtdeCarrinho > 1) ? this.serv.qtdeCarrinho + " produtos" : this.serv.qtdeCarrinho + " produto";
+        this.numeroFinal = this.final.cartaoCredito.numero.slice(-4);
     };
     FecharPedidoPage.prototype.voltar = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__abbas_abbas__["a" /* AbbasPage */]);
+    };
+    FecharPedidoPage.prototype.alterarEndereco = function () {
+        this.modalCtrl.create('CadastroEnderecoPage', { endereco: this.final.enderecoEntrega }).present();
+    };
+    FecharPedidoPage.prototype.alterarCartao = function () {
+        this.modalCtrl.create('CartaoCreditoPage', { cartao: this.final.cartaoCredito }).present();
+    };
+    FecharPedidoPage.prototype.finalizarCompra = function () {
+        this.presentAlert();
+    };
+    FecharPedidoPage.prototype.presentAlert = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: 'Compra finalizada!',
+            subTitle: 'Acompanhe o status em Pedidos.',
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function () {
+                        _this.serv.qtdeCarrinho = 0;
+                        _this.serv.carrinho = [];
+                        _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__abbas_abbas__["a" /* AbbasPage */]);
+                    }
+                }
+            ]
+        });
+        alert.present();
     };
     FecharPedidoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-fechar-pedido',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\fechar-pedido\fechar-pedido.html"*/'<ion-content id="fundo">\n\n    <ion-card text-wrap>\n      <h1 color="secondary" text-center>Pedido Enviado!</h1>\n    </ion-card>\n\n    <ion-card>\n      <ion-row>\n        <ion-col text-center style="font-size: 20px">\n          Segue o código do seu pedido:\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col text-center style="font-size: 60px">\n          15654\n        </ion-col>\n      </ion-row>\n    </ion-card>\n\n    <ion-card>\n      <ion-row>\n        <ion-col text-center style="font-size: 20px">\n          Enviamos o código do seu pedido para o seu email.\n        </ion-col>\n      </ion-row>\n    </ion-card>\n\n    <button ion-button full round (tap)="voltar()">Ok</button>\n\n\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\fechar-pedido\fechar-pedido.html"*/,
+            selector: 'page-fechar-pedido',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\fechar-pedido\fechar-pedido.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <ion-title>\n        Finalizar Compra\n      </ion-title>\n    </ion-navbar>\n  </ion-header>\n<ion-content padding>\n\n  <div class="comprados">\n    <ion-row>\n      <ion-col text-left>\n        {{ mostrarQtdeCarrinho }}\n      </ion-col>\n      <ion-col text-right>\n        R$ {{ totalCompra }}\n      </ion-col>\n    </ion-row>\n    <!--<ion-row class="menosMargem">\n      <ion-col>\n        <span ion-text color="primary">Vizualizar produtos</span>\n      </ion-col>\n    </ion-row>-->   \n    <ion-row class="menosMargem">\n      <ion-col text-left>\n        Valor do frete\n      </ion-col>\n      <ion-col text-right>\n        R$ {{ valorFrete }}\n      </ion-col>\n    </ion-row>\n    <ion-row style="font-weight: bold">\n      <ion-col text-left>\n        Total a pagar\n      </ion-col>\n      <ion-col text-right>\n        R$ {{ totalPagar }}\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div class="tituloQuadrado">Endereço de entrega</div>\n  <div class="endereco">\n    <ion-row>\n      <ion-col text-left>\n        {{ final.nomeFantasia }}\n      </ion-col>\n    </ion-row>\n    <ion-row class="menosMargem">\n      <ion-col text-left text-wrap>\n        {{ final.enderecoEntrega.endereco }}, {{ final.enderecoEntrega.numero }} \n      </ion-col>\n    </ion-row>   \n    <ion-row *ngIf="(final.enderecoEntrega.complemento)"  class="menosMargem">\n      <ion-col>\n        {{ final.enderecoEntrega.complemento }}\n      </ion-col>\n    </ion-row> \n    <ion-row class="menosMargem">\n      <ion-col text-left>\n        {{ final.enderecoEntrega.bairro }}\n      </ion-col>\n    </ion-row>\n    <ion-row class="menosMargem">\n      <ion-col text-left>\n        {{ final.enderecoEntrega.cidade }} - {{ final.enderecoEntrega.estado }}, CEP {{final.enderecoEntrega.cep}}\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <span ion-text color="primary" (tap)="alterarEndereco()">Alterar endereço de entrega</span>\n      </ion-col>\n    </ion-row>    \n  </div>\n\n  <div class="tituloQuadrado">Pagamento</div>\n  <div class="endereco">\n    <ion-row>\n      <ion-col>\n        Cartão Fina: <span style="font-weight: bold">{{ numeroFinal }}</span>\n      </ion-col>\n    </ion-row>\n    <ion-row class="menosMargem" text-wrap>    \n      <ion-col>\n        Nome Impresso: <span style="font-weight: bold">{{ final.cartaoCredito.nomeImpresso }}</span>\n      </ion-col>\n    </ion-row>    \n    <ion-row class="menosMargem">\n      <ion-col>\n        Validade: <span style="font-weight: bold">{{ final.cartaoCredito.validade }}</span>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <span ion-text color="primary" (tap)="alterarCartao()">Alterar cartão</span>\n      </ion-col>\n    </ion-row>       \n  </div>  \n  <p style="margin-top: 15px" text-center><button ion-button outline (tap)="finalizarCompra()" color="secondary">Finalizar Compra</button></p>\n\n\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\fechar-pedido\fechar-pedido.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
     ], FecharPedidoPage);
     return FecharPedidoPage;
 }());

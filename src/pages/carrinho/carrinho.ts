@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { ServicosProvider } from '../../providers/servicos/servicos';
 
 @Component({
@@ -11,7 +11,7 @@ export class CarrinhoPage {
   itensCarrinho: any[] = [];
   totalApagar: string = '0,00';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public serv: ServicosProvider, public alertCtrl: AlertController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public serv: ServicosProvider, public modalCtrl: ModalController) {
 
     this.itensCarrinho = this.serv.carrinho;
 
@@ -20,7 +20,7 @@ export class CarrinhoPage {
       this.totalApagar = this.serv.calcularTotal(elem.subTotal, this.totalApagar, '+');
     });
 
-    console.log("usuarioLogago" + JSON.stringify(this.serv.usuarioLogado));
+   // console.log("usuarioLogago" + JSON.stringify(this.serv.usuarioLogado));
 
   }
 
@@ -75,14 +75,17 @@ export class CarrinhoPage {
   }
 
   fecharPedido(){
+
+    this.serv.totalPagar = this.totalApagar;
+
     if(this.itensCarrinho.length > 0){
       if(this.serv.usuarioLogado.nomeFantasia == ''){
-        this.navCtrl.push('CadastroClientePage');
+        this.modalCtrl.create('CadastroClientePage').present();
       }else if(this.serv.usuarioLogado.enderecoEntrega.endereco == ''){
         this.modalCtrl.create('CadastroEnderecoPage').present();
-      }else if(this.serv.usuarioLogado.cartaoCredito.numero == ''){
+      }/*else if(this.serv.usuarioLogado.cartaoCredito.numero == ''){
         this.modalCtrl.create('CartaoCreditoPage').present();
-      }else{
+      }*/else{
         this.navCtrl.push('FecharPedidoPage');
       }
     }

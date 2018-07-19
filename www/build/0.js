@@ -1,14 +1,14 @@
 webpackJsonp([0],{
 
-/***/ 458:
+/***/ 462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegistrarPageModule", function() { return RegistrarPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registrar__ = __webpack_require__(465);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registrar__ = __webpack_require__(470);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,13 +38,13 @@ var RegistrarPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 465:
+/***/ 470:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegistrarPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(136);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -99,6 +99,10 @@ var RegistrarPage = /** @class */ (function () {
         this.navParams = navParams;
         this.afAuth = afAuth;
         this.userLogin = {};
+        this.emailInvalido = false;
+        this.emailVazio = false;
+        this.senhaVazio = false;
+        this.seisDigitos = false;
     }
     RegistrarPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad RegistrarPage');
@@ -109,27 +113,67 @@ var RegistrarPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.senha)];
+                        if (!(user.email.trim().length == 0)) return [3 /*break*/, 1];
+                        this.emailVazio = true;
+                        return [3 /*break*/, 6];
                     case 1:
+                        if (!(user.senha.trim().length == 0)) return [3 /*break*/, 2];
+                        this.emailVazio = true;
+                        return [3 /*break*/, 6];
+                    case 2:
+                        if (!(user.senha.trim().length < 6)) return [3 /*break*/, 3];
+                        this.seisDigitos = true;
+                        return [3 /*break*/, 6];
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.senha)];
+                    case 4:
                         result = _a.sent();
                         console.log(result);
                         if (result) {
                             this.navCtrl.pop();
                         }
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
                         console.error(e_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
     };
+    RegistrarPage.prototype.validaEmail = function (user) {
+        var usuario = user.email.substring(0, user.email.indexOf("@"));
+        var dominio = user.email.substring(user.email.indexOf("@") + 1, user.email.length);
+        if ((usuario.length >= 1) &&
+            (dominio.length >= 3) &&
+            (usuario.search("@") == -1) &&
+            (dominio.search("@") == -1) &&
+            (usuario.search(" ") == -1) &&
+            (dominio.search(" ") == -1) &&
+            (dominio.search(".") != -1) &&
+            (dominio.indexOf(".") >= 1) &&
+            (dominio.lastIndexOf(".") < dominio.length - 1)) {
+            this.emailInvalido = false;
+        }
+        else {
+            this.emailInvalido = true;
+        }
+    };
+    RegistrarPage.prototype.verEmailVazio = function () {
+        this.emailVazio = (this.userLogin.email == null || this.userLogin.email.trim().length == 0);
+    };
+    RegistrarPage.prototype.verSenhaVazio = function () {
+        this.senhaVazio = (this.userLogin.senha == null || this.userLogin.senha.trim().length == 0);
+        this.seisDigitos = (this.userLogin.senha == null || this.userLogin.senha.trim().length < 6);
+    };
+    RegistrarPage.prototype.voltarLogin = function () {
+        this.navCtrl.pop();
+    };
     RegistrarPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-registrar',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\registrar\registrar.html"*/'<ion-content>\n  <div style="margin-top: 50px">\n    <ion-row>\n      <ion-col>\n        <ion-list style="margin-right: 20px; margin-left: 20px">\n          <ion-item class="campo" >\n            <ion-input [(ngModel)]="userLogin.email" name="email" placeholder="E-mail" type="email"></ion-input>\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <ion-list style="margin-right: 20px; margin-left: 20px">\n          <ion-item class="campo" >\n            <ion-input [(ngModel)]="userLogin.senha" name="email" placeholder="Senha" type="password"></ion-input>\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col style="margin-left: 20px; margin-right: 20px">\n        <button ion-button full class="login-button" color="secondary" (tap)="registrar(userLogin)">Registrar</button>\n      </ion-col>  \n    </ion-row>  \n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\registrar\registrar.html"*/,
+            selector: 'page-registrar',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\registrar\registrar.html"*/'<ion-content>\n  <ion-buttons left>\n    <button color="secondary" ion-button icon-only (tap)="voltarLogin()"><ion-icon name="arrow-back"></ion-icon>\n    </button>\n  </ion-buttons>\n  <div style="margin-top: 50px">\n    <ion-row>\n      <ion-col>\n        <ion-list style="margin-right: 20px; margin-left: 20px">\n          <ion-item class="campo" >\n            <ion-input [(ngModel)]="userLogin.email" name="email" placeholder="E-mail" type="email"></ion-input>\n          </ion-item>\n          <p text-center *ngIf="emailVazio" style="color: red; font-size: 0.9em;">Digite o seu email</p>\n          <p text-center *ngIf="emailInvalido" style="color: red; font-size: 0.9em;">Email inválido</p> \n          <br>         \n          <ion-item class="campo" >\n            <ion-input [(ngModel)]="userLogin.senha" name="email" placeholder="Senha" type="password"></ion-input>\n          </ion-item>\n          <p text-center *ngIf="senhaVazio" style="color: #ff0000; font-size: 0.9em;">Digite a senha</p>\n          <p text-center *ngIf="seisDigitos" style="color: #ff0000; font-size: 0.9em;">Mínimo 6 caracteres</p>            \n        </ion-list>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col style="margin-left: 20px; margin-right: 20px">\n        <button ion-button full class="login-button" color="secondary" (tap)="registrar(userLogin)">Registrar</button>\n      </ion-col>  \n    </ion-row>  \n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\registrar\registrar.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]])
     ], RegistrarPage);

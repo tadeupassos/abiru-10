@@ -15,6 +15,8 @@ import { AbbasPage } from '../pages/abbas/abbas';
 import { VegetaisPage } from '../pages/vegetais/vegetais';
 import { FrutasPage } from '../pages/frutas/frutas';
 import { CarrinhoPage } from '../pages/carrinho/carrinho';
+import { ListaPedidoPage } from '../pages/lista-pedido/lista-pedido';
+import { ContatoPage } from '../pages/contato/contato';
 
 import { ServicosProvider } from '../providers/servicos/servicos';
 import { IonMaskModule } from '@pluritech/ion-mask';
@@ -35,7 +37,9 @@ const firebaseConfig = {
     VegetaisPage,
     FrutasPage,
     AbbasPage,
-    CarrinhoPage
+    CarrinhoPage,
+    ListaPedidoPage,
+    ContatoPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ const firebaseConfig = {
     VegetaisPage,
     FrutasPage,
     AbbasPage,
-    CarrinhoPage
+    CarrinhoPage,
+    ListaPedidoPage,
+    ContatoPage
   ],
   providers: [
     StatusBar,

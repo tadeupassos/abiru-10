@@ -17,8 +17,6 @@ export class HomePage {
   qtdeCarrinho = 0;
   produtosItem: Observable<any[]>;
 
-  produtos: any[] = [];
-
   constructor(public navCtrl: NavController, public serv: ServicosProvider, public modalCtrl: ModalController, database: AngularFireDatabase, public toastCtrl: ToastController) {
 
    this.produtosItem = database.list('produtos', ref => ref.orderByChild('preco'))

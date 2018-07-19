@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title text-left>Quero Ser Tembiu!</ion-title>
+    <ion-buttons right>
+    <button ion-button icon-only (tap)="fecharModal()">
+      <span ion-text showWhen="ios">Fechar</span>
+      <ion-icon showWhen="android" name="md-close"></ion-icon>
+    </button>
+    </ion-buttons>    
+  </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <p text-center text-wrap style="margin-left: 10px; margin-right: 10px; color:dimgray">O Tembiu é dedicado a um grupo seleto de serviços de alimentação, em prol da excelência na alimentação e do fortalecimento da agricultura familiar.</p>
+
+    <p text-center>Quer fazer parte dessa onda? Cadastre-se aqui.</p>
+    <ion-list>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>Nome</ion-label>
+        <ion-input (keyup)="verNomeVazio()" type="text" [(ngModel)]="nome"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="nomeVazio" style="color: red">Digite o seu nome</p>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>E-mail</ion-label>
+        <ion-input (keyup)="verEmailVazio()" (ionBlur)="validaEmail()" type="text" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="emailVazio" style="color: red">Digite o seu email</p>
+      <p text-center *ngIf="emailInvalido" style="color: red">Email inválido</p>
+  
+      <ion-item>
+        <ion-label color="secondary" stacked>Cidade e Estado</ion-label>
+        <ion-input (keyup)="verCidadeVazio()" type="text" [(ngModel)]="cidade"></ion-input>
+      </ion-item>
+      <p text-center *ngIf="cidadeVazio" style="color: red">Digite a sua cidade e estado</p>
+   
+    </ion-list> 
+
+    <ion-row>
+      <ion-col style="margin-left: 20px; margin-right: 20px">
+        <button ion-button block outline color="secondary" (tap)="queroSerTembiu()">Enviar</button>
+      </ion-col>
+    </ion-row>   
+  
+  </ion-content>
+  

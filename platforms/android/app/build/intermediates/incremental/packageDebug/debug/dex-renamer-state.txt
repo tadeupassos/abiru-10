@@ -1,4 +1,4 @@
-#Wed Jun 27 09:56:03 BRT 2018
+#Wed Jul 11 11:51:36 BRT 2018
 base.0=C\:\\ionic\\Abiru\\abiru-10\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
 file.0=C\:\\ionic\\Abiru\\abiru-10\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex

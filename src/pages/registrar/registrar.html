@@ -1,4 +1,8 @@
 <ion-content>
+  <ion-buttons left>
+    <button color="secondary" ion-button icon-only (tap)="voltarLogin()"><ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
   <div style="margin-top: 50px">
     <ion-row>
       <ion-col>
@@ -6,16 +10,14 @@
           <ion-item class="campo" >
             <ion-input [(ngModel)]="userLogin.email" name="email" placeholder="E-mail" type="email"></ion-input>
           </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-list style="margin-right: 20px; margin-left: 20px">
+          <p text-center *ngIf="emailVazio" style="color: red; font-size: 0.9em;">Digite o seu email</p>
+          <p text-center *ngIf="emailInvalido" style="color: red; font-size: 0.9em;">Email inválido</p> 
+          <br>         
           <ion-item class="campo" >
             <ion-input [(ngModel)]="userLogin.senha" name="email" placeholder="Senha" type="password"></ion-input>
           </ion-item>
+          <p text-center *ngIf="senhaVazio" style="color: #ff0000; font-size: 0.9em;">Digite a senha</p>
+          <p text-center *ngIf="seisDigitos" style="color: #ff0000; font-size: 0.9em;">Mínimo 6 caracteres</p>            
         </ion-list>
       </ion-col>
     </ion-row>
