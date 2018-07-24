@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the ListaPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
+import { ServicosProvider } from '../../providers/servicos/servicos';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -15,11 +11,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ListaPedidoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  todosPedidos: Observable<any[]>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public serv: ServicosProvider) {
+
+    this.todosPedidos = this.carregaTodosPedidos();
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListaPedidoPage');
   }
 
+  carregaTodosPedidos(){
+   return this.database.list('pedidos', ref => ref.orderByChild('ordemStatus'))
+    .snapshotChanges()
+    .map(changes => {
+         return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
+    })    
+  }
+
+  detalhesDoPedido(item){
+    console.log("item enviado " + item);
+
+    this.navCtrl.push('DetalhePedidoPage', { detalhe: item });
+  }  
 }

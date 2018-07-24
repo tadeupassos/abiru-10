@@ -25690,6 +25690,14 @@ page-carrinho #icone {
   margin-top: 14px;
 }
 
+page-carrinho .medida {
+  font-weight: normal;
+  font-size: 12px;
+  position: absolute;
+  top: 75%;
+  left: 6%;
+}
+
 page-fechar-pedido .menosMargem {
   margin-top: -7px;
 }
@@ -25803,6 +25811,24 @@ page-home button ion-badge {
 
 page-home button ion-badge ~ ion-icon {
   margin-right: 1.2rem;
+}
+
+page-lista-pedido .negrito {
+  font-weight: bold;
+}
+
+page-lista-pedido .items {
+  font-size: 15px;
+}
+
+page-lista-pedido .status {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+page-lista-pedido .valor {
+  font-size: 15px;
+  color: dimgray;
 }
 
 page-login .login-button {

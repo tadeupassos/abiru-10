@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar color="secondary">
+      <ion-title>
+        Pedido {{ status }}
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+<ion-content>
+  <ion-list>
+    <ion-item text-wrap *ngFor="let item of items">
+      <ion-row>
+        <ion-col>
+          <ion-row>
+            <ion-col style="font-size: 16px; font-weight: bold">
+              {{ item.itemNome }}
+            </ion-col>
+            <ion-col col-5 style="font-size: 16px;">
+              Quantidade: <span style="font-weight: bold">{{ item.qtdeItem }}</span>
+            </ion-col>            
+          </ion-row>
+          <ion-row>  
+            <ion-col style="font-size: 18px">
+             R$ {{ item.preco }} <span style="font-weight: normal; font-size: 14px;">{{ item.medida }}</span>
+            </ion-col>   
+            <ion-col col-5 style="color:slategrey" style="font-size: 15px; font-weight: bold">
+              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>
+            </ion-col>
+          </ion-row> 
+        </ion-col>         
+      </ion-row>  
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar color="secondary">
+      <button ion-button full color="primary" (tap)="reutilizar()">Reutilizar este pedido</button>
+    </ion-toolbar>
+  </ion-footer>  

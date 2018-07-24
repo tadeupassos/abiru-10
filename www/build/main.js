@@ -1,4 +1,4 @@
-webpackJsonp([9],{
+webpackJsonp([10],{
 
 /***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -11,7 +11,7 @@ webpackJsonp([9],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__frutas_frutas__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vegetais_vegetais__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lista_pedido_lista_pedido__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(29);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,9 +49,10 @@ var AbbasPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-abbas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/'<ion-tabs color="secondary" [selectedIndex]="indiceTab">\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Frutas" tabIcon="logo-apple" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Hortaliças" tabIcon="ios-nutrition-outline" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="Pedidos" tabIcon="ios-list-box-outline" tabsHideOnSubPages="true"></ion-tab>  \n</ion-tabs>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\abbas\abbas.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__["a" /* ServicosProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__["a" /* ServicosProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__["a" /* ServicosProvider */]) === "function" && _c || Object])
     ], AbbasPage);
     return AbbasPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=abbas.js.map
@@ -65,6 +66,16 @@ var AbbasPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaPedidoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_angularfire2_database__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__ = __webpack_require__(29);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -76,25 +87,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-/**
- * Generated class for the ListaPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+
 var ListaPedidoPage = /** @class */ (function () {
-    function ListaPedidoPage(navCtrl, navParams) {
+    function ListaPedidoPage(navCtrl, navParams, database, serv) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.database = database;
+        this.serv = serv;
+        this.todosPedidos = this.carregaTodosPedidos();
     }
     ListaPedidoPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ListaPedidoPage');
     };
+    ListaPedidoPage.prototype.carregaTodosPedidos = function () {
+        return this.database.list('pedidos', function (ref) { return ref.orderByChild('ordemStatus'); })
+            .snapshotChanges()
+            .map(function (changes) {
+            return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
+        });
+    };
+    ListaPedidoPage.prototype.detalhesDoPedido = function (item) {
+        console.log("item enviado " + item);
+        this.navCtrl.push('DetalhePedidoPage', { detalhe: item });
+    };
     ListaPedidoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-lista-pedido',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/'\n<ion-header>\n\n  <ion-navbar color="secondary">\n    <ion-title>Pedidos</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content id="fundo">\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n        Pedidos Realizados\n      </ion-list-header>\n    \n      <ion-item>\n        <ion-label>Cord</ion-label>\n        <ion-radio value="cord"></ion-radio>\n      </ion-item>\n    \n      <ion-item>\n        <ion-label>Duesenberg</ion-label>\n        <ion-radio value="duesenberg"></ion-radio>\n      </ion-item>\n  \n    </ion-list>\n  </ion-card>  \n  <ion-card>\n    <ion-list>\n        <ion-list-header>\n          Pedidos em Andamento\n        </ion-list-header>\n      \n        <ion-item>\n          <ion-label>Cord</ion-label>\n          <ion-radio value="cord"></ion-radio>\n        </ion-item>\n      \n        <ion-item>\n          <ion-label>Duesenberg</ion-label>\n          <ion-radio value="duesenberg"></ion-radio>\n        </ion-item>  \n      </ion-list>    \n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/,
+            selector: 'page-lista-pedido',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/'\n<ion-header>\n  <ion-navbar color="secondary">\n    <ion-title>Pedidos</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content id="fundo">\n  <ion-card *ngFor="let item of todosPedidos | async" > \n    <div style="margin: 10px 10px 5px 10px">\n      <ion-row>           \n        <ion-col>\n          <span class="negrito">Status:</span> <span class="status" [style.color]="item.corStatus">{{ item.status }}</span>\n        </ion-col>\n        <ion-col col-6>\n          <span class="negrito">Pedido:</span> <span class="items">{{ item.pedido }}</span>\n        </ion-col>           \n      </ion-row>\n      <ion-row>\n        <ion-col col-6>\n          <span class="negrito">Data:</span><span class="items">{{ item.dataPedido }}</span>\n        </ion-col>\n        <ion-col>\n          <span class="negrito">Total: </span> <span class="valor">R$ {{ item.totalPagar }}</span>\n        </ion-col>     \n      </ion-row>\n      <ion-row>\n        <ion-col text-center>\n          <span ion-text (tap)="detalhesDoPedido(item)" color="primary" style="font-size: 16px">Ver detalhes do pedido</span>     \n        </ion-col>        \n      </ion-row>      \n    </div>\n  </ion-card>  \n</ion-content>\n'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\lista-pedido\lista-pedido.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__node_modules_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__["a" /* ServicosProvider */]])
     ], ListaPedidoPage);
     return ListaPedidoPage;
 }());
@@ -125,39 +146,43 @@ webpackEmptyAsyncContext.id = 148;
 
 var map = {
 	"../pages/cadastro-cliente/cadastro-cliente.module": [
+		454,
+		8
+	],
+	"../pages/cadastro-endereco/cadastro-endereco.module": [
 		455,
 		7
 	],
-	"../pages/cadastro-endereco/cadastro-endereco.module": [
-		454,
-		6
-	],
 	"../pages/cartao-credito/cartao-credito.module": [
 		456,
+		6
+	],
+	"../pages/detalhe-pedido/detalhe-pedido.module": [
+		457,
 		5
 	],
 	"../pages/endereco-cobranca/endereco-cobranca.module": [
-		457,
+		459,
 		4
 	],
 	"../pages/escolher-entrega/escolher-entrega.module": [
-		459,
+		458,
 		3
 	],
 	"../pages/fechar-pedido/fechar-pedido.module": [
-		458,
+		460,
 		2
 	],
 	"../pages/lista-pedido/lista-pedido.module": [
-		460,
-		8
+		461,
+		9
 	],
 	"../pages/login/login.module": [
-		461,
+		462,
 		1
 	],
 	"../pages/registrar/registrar.module": [
-		462,
+		463,
 		0
 	]
 };
@@ -184,9 +209,9 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(41);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -271,9 +296,9 @@ var HomePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrutasPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__carrinho_carrinho__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__carrinho_carrinho__ = __webpack_require__(61);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -338,7 +363,7 @@ var FrutasPage = /** @class */ (function () {
     };
     FrutasPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-frutas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>    \n      <ion-title>\n        Frutas\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/,
+            selector: 'page-frutas',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>    \n      <ion-title>\n        Frutas\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center style="font-weight: bold">\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\frutas\frutas.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], FrutasPage);
@@ -356,9 +381,9 @@ var FrutasPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VegetaisPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__carrinho_carrinho__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(41);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -423,7 +448,7 @@ var VegetaisPage = /** @class */ (function () {
     };
     VegetaisPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-vegetais',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu">      \n        </ion-icon>\n      </button>    \n      <ion-title>\n        Vegetais\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center>\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/,
+            selector: 'page-vegetais',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/'<ion-header>\n    <ion-navbar color="secondary">\n      <button ion-button menuToggle>\n        <ion-icon name="menu">      \n        </ion-icon>\n      </button>    \n      <ion-title>\n        Vegetais\n      </ion-title>\n      <ion-buttons right (tap)="mostrarCarrinho()">\n        <button ion-button icon-only large>\n          <ion-icon name="cart" style="font-size: 40px"><ion-badge start color="danger">{{ qtdeCarrinho }}</ion-badge></ion-icon>\n        </button>     \n      </ion-buttons>         \n    </ion-navbar>\n  </ion-header>\n\n  <ion-content id="fundo">\n    <ion-searchbar [(ngModel)]="buscaLetra" (ionInput)="filtrarPorLetra()" placeholder="Buscar">\n    </ion-searchbar>  \n  \n    <ion-list>\n      <ion-card *ngFor="let produto of produtosItem | async">\n        <ion-grid no-padding>\n          <ion-row>\n            <ion-col text-center col-4>\n              <img [src]="produto.urlImg">\n            </ion-col>\n            <ion-col col-4>\n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-size: 15px">{{ produto.itemNome }}</div>\n                </ion-col>\n              </ion-row> \n              <ion-row>\n                <ion-col text-center>\n                  <div style="font-weight: bold; font-size: 20px"> R$ {{ produto.preco }} </div>\n                </ion-col>\n              </ion-row>\n            </ion-col>\n            <ion-col col-4>\n              <ion-row style="font-size: 25px">\n                <ion-col col-4 text-left>\n                  <ion-icon name="ios-remove-circle-outline" (tap)="remover(produto)"></ion-icon>\n                </ion-col>\n                <ion-col col-4 text-center style="font-size: 20px">\n                  {{ produto.qtdeItem }}\n                </ion-col>\n                <ion-col col-4 text-right>\n                  <ion-icon name="ios-add-circle-outline" (tap)="adicionar(produto)"></ion-icon>\n                </ion-col> \n              </ion-row>\n              <ion-row style="font-size: 11px; margin-top: -10px; margin-bottom: -10px">\n                <ion-col text-center style="font-weight: bold">\n                  {{ produto.medida }}\n                </ion-col>\n              </ion-row>            \n              <ion-row>\n                <ion-col text-center>\n                  <button style="font-size: 16px" ion-button small icon-start (tap)="addCarrinho(produto)">\n                    <!--<ion-icon name="cart"></ion-icon>-->\n                    Comprar\n                  </button>\n                </ion-col>            \n              </ion-row> \n            </ion-col>\n          </ion-row>\n        </ion-grid> \n      </ion-card> \n    </ion-list> \n  </ion-content>'/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\vegetais\vegetais.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], VegetaisPage);
@@ -434,246 +459,17 @@ var VegetaisPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 290:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContatoPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ContatoPage = /** @class */ (function () {
-    function ContatoPage(navCtrl, navParams, viewCtrl, alertCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
-        this.alertCtrl = alertCtrl;
-        this.nome = "";
-        this.email = "";
-        this.cidade = "";
-        this.nomeVazio = false;
-        this.emailVazio = false;
-        this.emailInvalido = false;
-        this.cidadeVazio = false;
-    }
-    ContatoPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ContatoPage');
-    };
-    ContatoPage.prototype.verNomeVazio = function () {
-        this.nomeVazio = (this.nome.trim().length == 0);
-    };
-    ContatoPage.prototype.verEmailVazio = function () {
-        this.emailVazio = (this.email.trim().length == 0);
-    };
-    ContatoPage.prototype.validaEmail = function () {
-        var usuario = this.email.substring(0, this.email.indexOf("@"));
-        var dominio = this.email.substring(this.email.indexOf("@") + 1, this.email.length);
-        if ((usuario.length >= 1) &&
-            (dominio.length >= 3) &&
-            (usuario.search("@") == -1) &&
-            (dominio.search("@") == -1) &&
-            (usuario.search(" ") == -1) &&
-            (dominio.search(" ") == -1) &&
-            (dominio.search(".") != -1) &&
-            (dominio.indexOf(".") >= 1) &&
-            (dominio.lastIndexOf(".") < dominio.length - 1)) {
-            this.emailInvalido = false;
-        }
-        else {
-            this.emailInvalido = true;
-        }
-    };
-    ContatoPage.prototype.verCidadeVazio = function () {
-        this.cidadeVazio = (this.cidade.trim().length == 0);
-    };
-    ContatoPage.prototype.queroSerTembiu = function () {
-        var _this = this;
-        console.log("Nome: " + this.nome + " - E-mail: " + this.email + " - Cidade-Estado: " + this.cidade);
-        var alert = this.alertCtrl.create({
-            title: 'Tembiu',
-            subTitle: 'Em breve entraremos em contato!',
-            buttons: [
-                {
-                    text: 'OK',
-                    handler: function () {
-                        _this.fecharModal();
-                    }
-                }
-            ]
-        });
-        alert.present();
-    };
-    ContatoPage.prototype.fecharModal = function () {
-        this.viewCtrl.dismiss();
-    };
-    ContatoPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-contato',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <ion-title text-left>Quero Ser Tembiu!</ion-title>\n    <ion-buttons right>\n    <button ion-button icon-only (tap)="fecharModal()">\n      <span ion-text showWhen="ios">Fechar</span>\n      <ion-icon showWhen="android" name="md-close"></ion-icon>\n    </button>\n    </ion-buttons>    \n  </ion-navbar>\n  </ion-header>\n  \n  <ion-content>\n    <p text-center text-wrap style="margin-left: 10px; margin-right: 10px; color:dimgray">O Tembiu é dedicado a um grupo seleto de serviços de alimentação, em prol da excelência na alimentação e do fortalecimento da agricultura familiar.</p>\n\n    <p text-center>Quer fazer parte dessa onda? Cadastre-se aqui.</p>\n    <ion-list>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Nome</ion-label>\n        <ion-input (keyup)="verNomeVazio()" type="text" [(ngModel)]="nome"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="nomeVazio" style="color: red">Digite o seu nome</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>E-mail</ion-label>\n        <ion-input (keyup)="verEmailVazio()" (ionBlur)="validaEmail()" type="text" [(ngModel)]="email"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="emailVazio" style="color: red">Digite o seu email</p>\n      <p text-center *ngIf="emailInvalido" style="color: red">Email inválido</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Cidade e Estado</ion-label>\n        <ion-input (keyup)="verCidadeVazio()" type="text" [(ngModel)]="cidade"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="cidadeVazio" style="color: red">Digite a sua cidade e estado</p>\n   \n    </ion-list> \n\n    <ion-row>\n      <ion-col style="margin-left: 20px; margin-right: 20px">\n        <button ion-button block outline color="secondary" (tap)="queroSerTembiu()">Enviar</button>\n      </ion-col>\n    </ion-row>   \n  \n  </ion-content>\n  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
-    ], ContatoPage);
-    return ContatoPage;
-}());
-
-//# sourceMappingURL=contato.js.map
-
-/***/ }),
-
-/***/ 291:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(311);
-
-
-Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
-//# sourceMappingURL=main.js.map
-
-/***/ }),
-
-/***/ 311:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(453);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_home_home__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var firebaseConfig = {
-    apiKey: "AIzaSyCBazjQytaKuBMdV7ReWPB-pm9OSwo2d_k",
-    authDomain: "abiro-10.firebaseapp.com",
-    databaseURL: "https://abiro-10.firebaseio.com",
-    projectId: "abiro-10",
-    storageBucket: "abiro-10.appspot.com",
-    messagingSenderId: "329145715736"
-};
-var AppModule = /** @class */ (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicModule"].forRoot(__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */], {}, {
-                    links: [
-                        { loadChildren: '../pages/cadastro-endereco/cadastro-endereco.module#CadastroEnderecoPageModule', name: 'CadastroEnderecoPage', segment: 'cadastro-endereco', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cadastro-cliente/cadastro-cliente.module#CadastroClientePageModule', name: 'CadastroClientePage', segment: 'cadastro-cliente', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/cartao-credito/cartao-credito.module#CartaoCreditoPageModule', name: 'CartaoCreditoPage', segment: 'cartao-credito', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/endereco-cobranca/endereco-cobranca.module#EnderecoCobrancaPageModule', name: 'EnderecoCobrancaPage', segment: 'endereco-cobranca', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/fechar-pedido/fechar-pedido.module#FecharPedidoPageModule', name: 'FecharPedidoPage', segment: 'fechar-pedido', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/escolher-entrega/escolher-entrega.module#EscolherEntregaPageModule', name: 'EscolherEntregaPage', segment: 'escolher-entrega', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/lista-pedido/lista-pedido.module#ListaPedidoPageModule', name: 'ListaPedidoPage', segment: 'lista-pedido', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/registrar/registrar.module#RegistrarPageModule', name: 'RegistrarPage', segment: 'registrar', priority: 'low', defaultHistory: [] }
-                    ]
-                }),
-                __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__["IonMaskModule"].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_6_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
-                __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__["b" /* AngularFireAuthModule */],
-                __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__["b" /* AngularFireDatabaseModule */]
-            ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicApp"]],
-            entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicErrorHandler"] },
-                __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__["a" /* ServicosProvider */]
-            ]
-        })
-    ], AppModule);
-    return AppModule;
-}());
-
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 33:
+/***/ 29:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServicosProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(41);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -880,6 +676,236 @@ var ServicosProvider = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 290:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContatoPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ContatoPage = /** @class */ (function () {
+    function ContatoPage(navCtrl, navParams, viewCtrl, alertCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.alertCtrl = alertCtrl;
+        this.nome = "";
+        this.email = "";
+        this.cidade = "";
+        this.nomeVazio = false;
+        this.emailVazio = false;
+        this.emailInvalido = false;
+        this.cidadeVazio = false;
+    }
+    ContatoPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ContatoPage');
+    };
+    ContatoPage.prototype.verNomeVazio = function () {
+        this.nomeVazio = (this.nome.trim().length == 0);
+    };
+    ContatoPage.prototype.verEmailVazio = function () {
+        this.emailVazio = (this.email.trim().length == 0);
+    };
+    ContatoPage.prototype.validaEmail = function () {
+        var usuario = this.email.substring(0, this.email.indexOf("@"));
+        var dominio = this.email.substring(this.email.indexOf("@") + 1, this.email.length);
+        if ((usuario.length >= 1) &&
+            (dominio.length >= 3) &&
+            (usuario.search("@") == -1) &&
+            (dominio.search("@") == -1) &&
+            (usuario.search(" ") == -1) &&
+            (dominio.search(" ") == -1) &&
+            (dominio.search(".") != -1) &&
+            (dominio.indexOf(".") >= 1) &&
+            (dominio.lastIndexOf(".") < dominio.length - 1)) {
+            this.emailInvalido = false;
+        }
+        else {
+            this.emailInvalido = true;
+        }
+    };
+    ContatoPage.prototype.verCidadeVazio = function () {
+        this.cidadeVazio = (this.cidade.trim().length == 0);
+    };
+    ContatoPage.prototype.queroSerTembiu = function () {
+        var _this = this;
+        console.log("Nome: " + this.nome + " - E-mail: " + this.email + " - Cidade-Estado: " + this.cidade);
+        var alert = this.alertCtrl.create({
+            title: 'Tembiu',
+            subTitle: 'Em breve entraremos em contato!',
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function () {
+                        _this.fecharModal();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    ContatoPage.prototype.fecharModal = function () {
+        this.viewCtrl.dismiss();
+    };
+    ContatoPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-contato',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/'<ion-header>\n  <ion-navbar color="secondary">\n    <ion-title text-left>Quero Ser Tembiu!</ion-title>\n    <ion-buttons right>\n    <button ion-button icon-only (tap)="fecharModal()">\n      <span ion-text showWhen="ios">Fechar</span>\n      <ion-icon showWhen="android" name="md-close"></ion-icon>\n    </button>\n    </ion-buttons>    \n  </ion-navbar>\n  </ion-header>\n  \n  <ion-content>\n    <p text-center text-wrap style="margin-left: 10px; margin-right: 10px; color:dimgray">O Tembiu é dedicado a um grupo seleto de serviços de alimentação, em prol da excelência na alimentação e do fortalecimento da agricultura familiar.</p>\n\n    <p text-center>Quer fazer parte dessa onda? Cadastre-se aqui.</p>\n    <ion-list>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Nome</ion-label>\n        <ion-input (keyup)="verNomeVazio()" type="text" [(ngModel)]="nome"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="nomeVazio" style="color: red">Digite o seu nome</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>E-mail</ion-label>\n        <ion-input (keyup)="verEmailVazio()" (ionBlur)="validaEmail()" type="text" [(ngModel)]="email"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="emailVazio" style="color: red">Digite o seu email</p>\n      <p text-center *ngIf="emailInvalido" style="color: red">Email inválido</p>\n  \n      <ion-item>\n        <ion-label color="secondary" stacked>Cidade e Estado</ion-label>\n        <ion-input (keyup)="verCidadeVazio()" type="text" [(ngModel)]="cidade"></ion-input>\n      </ion-item>\n      <p text-center *ngIf="cidadeVazio" style="color: red">Digite a sua cidade e estado</p>\n   \n    </ion-list> \n\n    <ion-row>\n      <ion-col style="margin-left: 20px; margin-right: 20px">\n        <button ion-button block outline color="secondary" (tap)="queroSerTembiu()">Enviar</button>\n      </ion-col>\n    </ion-row>   \n  \n  </ion-content>\n  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\contato\contato.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
+    ], ContatoPage);
+    return ContatoPage;
+}());
+
+//# sourceMappingURL=contato.js.map
+
+/***/ }),
+
+/***/ 291:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(311);
+
+
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 311:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(453);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_home_home__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var firebaseConfig = {
+    apiKey: "AIzaSyCBazjQytaKuBMdV7ReWPB-pm9OSwo2d_k",
+    authDomain: "abiro-10.firebaseapp.com",
+    databaseURL: "https://abiro-10.firebaseio.com",
+    projectId: "abiro-10",
+    storageBucket: "abiro-10.appspot.com",
+    messagingSenderId: "329145715736"
+};
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicModule"].forRoot(__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */], {}, {
+                    links: [
+                        { loadChildren: '../pages/cadastro-cliente/cadastro-cliente.module#CadastroClientePageModule', name: 'CadastroClientePage', segment: 'cadastro-cliente', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cadastro-endereco/cadastro-endereco.module#CadastroEnderecoPageModule', name: 'CadastroEnderecoPage', segment: 'cadastro-endereco', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/cartao-credito/cartao-credito.module#CartaoCreditoPageModule', name: 'CartaoCreditoPage', segment: 'cartao-credito', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/detalhe-pedido/detalhe-pedido.module#DetalhePedidoPageModule', name: 'DetalhePedidoPage', segment: 'detalhe-pedido', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/escolher-entrega/escolher-entrega.module#EscolherEntregaPageModule', name: 'EscolherEntregaPage', segment: 'escolher-entrega', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/endereco-cobranca/endereco-cobranca.module#EnderecoCobrancaPageModule', name: 'EnderecoCobrancaPage', segment: 'endereco-cobranca', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/fechar-pedido/fechar-pedido.module#FecharPedidoPageModule', name: 'FecharPedidoPage', segment: 'fechar-pedido', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/lista-pedido/lista-pedido.module#ListaPedidoPageModule', name: 'ListaPedidoPage', segment: 'lista-pedido', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/registrar/registrar.module#RegistrarPageModule', name: 'RegistrarPage', segment: 'registrar', priority: 'low', defaultHistory: [] }
+                    ]
+                }),
+                __WEBPACK_IMPORTED_MODULE_18__pluritech_ion_mask__["IonMaskModule"].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_6_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
+                __WEBPACK_IMPORTED_MODULE_7_angularfire2_auth__["b" /* AngularFireAuthModule */],
+                __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__["b" /* AngularFireDatabaseModule */]
+            ],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicApp"]],
+            entryComponents: [
+                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_vegetais_vegetais__["a" /* VegetaisPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_frutas_frutas__["a" /* FrutasPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_abbas_abbas__["a" /* AbbasPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_carrinho_carrinho__["a" /* CarrinhoPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_lista_pedido_lista_pedido__["a" /* ListaPedidoPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_contato_contato__["a" /* ContatoPage */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
+                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicErrorHandler"] },
+                __WEBPACK_IMPORTED_MODULE_17__providers_servicos_servicos__["a" /* ServicosProvider */]
+            ]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
 /***/ 453:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -891,7 +917,7 @@ var ServicosProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_abbas_abbas__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicos_servicos__ = __webpack_require__(29);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -944,14 +970,14 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 75:
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CarrinhoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__ = __webpack_require__(29);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1035,7 +1061,7 @@ var CarrinhoPage = /** @class */ (function () {
     };
     CarrinhoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-carrinho',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/'<ion-header>\n    <ion-toolbar color="secondary">\n      <ion-title>\n        Carrinho\n      </ion-title>\n      <ion-buttons start (tap)="fecharModal()">\n        <button ion-button>\n          <span ion-text showWhen="ios">Fechar</span>\n          <ion-icon showWhen="android" name="md-close"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  \n<ion-content>\n  <ion-list>\n    <ion-item text-wrap *ngFor="let item of itensCarrinho">\n      <ion-row >\n        <ion-col col-3>\n          <img [src]="item.urlImg" width="70px" height="70px">\n        </ion-col>\n        <ion-col>\n          <ion-row>\n            <ion-col col-6 text-left style="font-size: 15px">\n              {{ item.itemNome }}\n            </ion-col>\n            <ion-col col-2 text-right  style="font-size: 25px">\n              <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>\n            </ion-col>\n            <ion-col col-2 text-center style="font-size: 20px">\n              {{ item.qtdeItem }}\n            </ion-col>\n            <ion-col col-2 text-left  style="font-size: 25px">\n              <ion-icon name="ios-add-circle-outline" (tap)="adicionar(item)"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>  \n            <ion-col col-4 text-left style="font-size: 15px">\n             R$ {{ item.preco }}\n            </ion-col>   \n            <ion-col text-right style="color:slategrey" style="font-size: 15px; font-weight: bold">\n              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>\n            </ion-col>\n          </ion-row> \n        </ion-col>         \n      </ion-row>  \n    </ion-item>\n  </ion-list>\n</ion-content>\n<ion-footer>\n  <ion-item>\n    Total\n    <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>\n  </ion-item>\n  <ion-toolbar color="secondary">\n    <button ion-button full color="primary" (tap)="fecharPedido()">Fechar Pedido</button>\n  </ion-toolbar>\n</ion-footer>  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/,
+            selector: 'page-carrinho',template:/*ion-inline-start:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/'<ion-header>\n    <ion-toolbar color="secondary">\n      <ion-title>\n        Carrinho\n      </ion-title>\n      <ion-buttons start (tap)="fecharModal()">\n        <button ion-button>\n          <span ion-text showWhen="ios">Fechar</span>\n          <ion-icon showWhen="android" name="md-close"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-header>\n  \n<ion-content>\n  <ion-list>\n    <ion-item text-wrap *ngFor="let item of itensCarrinho">\n      <ion-row >\n        <ion-col col-3>\n          <img [src]="item.urlImg" width="70px" height="70px">\n        </ion-col>\n        <ion-col>\n          <ion-row>\n            <ion-col col-6 text-left style="font-size: 15px; font-weight: bold">\n              {{ item.itemNome }}\n            </ion-col>\n            <ion-col col-2 text-right  style="font-size: 25px">\n              <ion-icon name="ios-remove-circle-outline" (tap)="remover(item)"></ion-icon>\n            </ion-col>\n            <ion-col col-2 text-center style="font-size: 20px">\n              {{ item.qtdeItem }}\n            </ion-col>\n            <ion-col col-2 text-left  style="font-size: 25px">\n              <ion-icon name="ios-add-circle-outline" (tap)="adicionar(item)"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>  \n            <ion-col col-5 text-left style="font-size: 17px">\n             R$ {{ item.preco }}\n             <!--<span class="medida"> {{ item.medida }}</span>-->\n            </ion-col>   \n            <ion-col text-right style="color:slategrey" style="font-size: 15px; font-weight: bold">\n              Subtotal: <span style="font-size: 18px">{{ item.subTotal }}</span>\n            </ion-col>\n          </ion-row> \n        </ion-col>         \n      </ion-row>  \n    </ion-item>\n  </ion-list>\n</ion-content>\n<ion-footer>\n  <ion-item>\n    Total\n    <span item-end  style="font-size: 19px; font-weight: bold">R$ {{ totalApagar }}</span>\n  </ion-item>\n  <ion-toolbar color="secondary">\n    <button ion-button full color="primary" (tap)="fecharPedido()">Fechar Pedido</button>\n  </ion-toolbar>\n</ion-footer>  '/*ion-inline-end:"C:\ionic\Abiru\abiru-10\src\pages\carrinho\carrinho.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_2__providers_servicos_servicos__["a" /* ServicosProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"]])
     ], CarrinhoPage);

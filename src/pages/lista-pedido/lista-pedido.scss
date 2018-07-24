@@ -1,3 +1,22 @@
 page-lista-pedido {
 
+    .negrito {
+        font-weight: bold;
+    }
+    
+    .items {
+        font-size: 15px;
+    }
+
+    .status {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .valor {
+        font-size: 15px;
+        //font-weight: bold;
+        color: dimgray;
+    }   
+
 }

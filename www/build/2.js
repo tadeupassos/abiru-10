@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 458:
+/***/ 460:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FecharPedidoPageModule", function() { return FecharPedidoPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fechar_pedido__ = __webpack_require__(467);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fechar_pedido__ = __webpack_require__(470);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var FecharPedidoPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 467:
+/***/ 470:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46,8 +46,16 @@ var FecharPedidoPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__abbas_abbas__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_modules_angularfire2_database__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicos_servicos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_modules_angularfire2_database__ = __webpack_require__(41);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97,16 +105,20 @@ var FecharPedidoPage = /** @class */ (function () {
     };
     FecharPedidoPage.prototype.finalizarCompra = function () {
         var _this = this;
-        this.database.list('pedidos')
-            .push({
-            cliente: this.final,
-            status: "Enviado",
-            dataPedido: new Date().toLocaleDateString(),
-            items: this.serv.carrinho,
-            totalPagar: this.serv.totalPagar
-        }).then(function () {
-            _this.presentAlert();
-        });
+        this.gerarNumeroPedido().then(function () {
+            _this.database.list('numeroPedido').update(_this.keyNumeroPedido, { numero: _this.numeroPedido });
+            _this.database.list('pedidos')
+                .push({
+                pedido: _this.numeroPedido,
+                cliente: _this.final,
+                status: "Realizado",
+                dataPedido: new Date().toLocaleDateString(),
+                items: _this.serv.carrinho,
+                totalPagar: _this.serv.totalPagar
+            }).then(function () {
+                _this.presentAlert();
+            });
+        }).catch(function (e) { console.log("Erro em gerarNumeroPedido() " + e); });
     };
     FecharPedidoPage.prototype.presentAlert = function () {
         var _this = this;
@@ -128,6 +140,22 @@ var FecharPedidoPage = /** @class */ (function () {
             ]
         });
         alert.present();
+    };
+    FecharPedidoPage.prototype.gerarNumeroPedido = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.database.list('numeroPedido')
+                .snapshotChanges()
+                .map(function (changes) {
+                return changes.map(function (p) { return (__assign({ key: p.payload.key }, p.payload.val())); });
+            }).forEach(function (item) {
+                _this.numeroPedido = parseInt(item[0].numero + 1);
+                console.log("item[0].numero+1 " + parseInt(item[0].numero + 1));
+                alert("Veja");
+                _this.keyNumeroPedido = item[0].key;
+                resolve();
+            });
+        });
     };
     FecharPedidoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({

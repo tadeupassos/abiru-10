@@ -17,6 +17,9 @@ export class FecharPedidoPage {
   valorFrete = "7,00";
   totalCompra: any;
   numeroFinal: any;
+
+  numeroPedido: any;
+  keyNumeroPedido: any;  
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public serv: ServicosProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, public database: AngularFireDatabase) {
     this.final = this.serv.usuarioLogado;
@@ -52,17 +55,20 @@ export class FecharPedidoPage {
   }
 
   finalizarCompra(){
-
-    this.database.list('pedidos')
-      .push({ 
-        cliente: this.final,
-        status: "Enviado",
-        dataPedido: new Date().toLocaleDateString(),
-        items: this.serv.carrinho,
-        totalPagar: this.serv.totalPagar
-      }).then(() => {
-        this.presentAlert();
-      });      
+    this.gerarNumeroPedido().then(() => {
+      this.database.list('numeroPedido').update(this.keyNumeroPedido, { numero: this.numeroPedido });
+      this.database.list('pedidos')
+        .push({ 
+          pedido: this.numeroPedido,
+          cliente: this.final,
+          status: "Realizado",
+          dataPedido: new Date().toLocaleDateString(),
+          items: this.serv.carrinho,
+          totalPagar: this.serv.totalPagar
+        }).then(() => {
+          this.presentAlert();
+        });
+      }).catch((e) => { console.log("Erro em gerarNumeroPedido() " + e) });
   }
 
   presentAlert() {
@@ -84,6 +90,21 @@ export class FecharPedidoPage {
       ]
     });
     alert.present();
-  }  
-
+  }
+  
+  gerarNumeroPedido() {
+    return new Promise((resolve) => { 
+      this.database.list('numeroPedido')
+      .snapshotChanges()
+      .map(changes => {
+          return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
+      }).forEach((item) => {
+        this.numeroPedido = parseInt(item[0].numero + 1);
+        console.log("item[0].numero+1 " + parseInt(item[0].numero + 1));
+        alert("Veja");
+        this.keyNumeroPedido = item[0].key; 
+        resolve();
+      });
+    });
+  } 
 }
